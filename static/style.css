@@ -1,0 +1,384 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+*{
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body{
+  display: flex;
+}
+/* Sidebars ***************************************************************************************************/
+.sidebar{
+  position: sticky;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 110px;
+  height: 100vh;
+  padding: 0 1.7rem;
+  color: #fff;
+  overflow: hidden;
+  transition: all 0.5s linear;
+  background-color: #226F54;
+}
+.sidebar:hover{
+  width: 240px;
+  transition: 0.5s ;
+}
+
+.logo{
+  height: 80px;
+  padding: 16px;
+}
+.logo img {
+  height: 60px;
+  width: 60px;
+
+}
+.menu{
+  height: 88%;
+  position: relative;
+  list-style: none;
+  padding: 0;
+
+}
+.menu li{
+  padding: 1rem;
+  margin: 8px 0;
+  border-radius: 8px;
+  transition: all 0.5s ease-in-out;
+}
+.menu li:hover,.active{
+  background:#e0e0e058 ;
+}
+.menu a{
+  color:#fff;
+  font-size: 14px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.menu a span{
+  overflow: hidden;
+}
+.menu a i{
+  font-size: 1.2rem;
+}
+.logout{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width:100% ;
+}
+/* Main content ***************************************************************************************/
+.main--content{
+  position: relative;
+  background: #ebe9e9;
+  width: 100%;
+  padding: 1rem;
+}
+/********************************************** Header ************************************************/
+.header--wrapper img {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  border-radius: 50%;
+
+}
+.header--wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px 2rem;
+  margin-bottom: 1rem;
+}
+.header--title{
+  color: rgba(113, 99, 186, 255);
+}
+.user--info{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.search--box{
+  background: rgb(237, 237, 237);
+  border-radius: 15px;
+  color: rgba(113, 99, 186, 255);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+}
+.search--box input{
+  background: transparent;
+  padding: 10px;
+}
+.search--box i{
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.5s ease-out;
+}
+.search--box i:hover{
+  transform: scale(1.2);
+}
+/* ************************************************* Header End ************************************************/
+/*************************************************** card container ********************************************/
+.card--container{
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+}
+.card--wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.main--title{
+  color: rgba(113, 99, 186, 255);
+  padding-bottom: 10px;
+  font-size: 15px;
+}
+.payment--card{
+
+  background: rgb(229, 223, 223);
+  border-radius: 10px;
+  padding: 1.2rem;
+  width: 290px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.5s ease-in-out;
+}
+.payment--card:hover{
+  transform: translateY(-5px);
+}
+.card--header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.amount{
+  display: flex;
+  flex-direction: column;
+}
+.title{
+  font-size: 20px;
+  font-weight: 200;
+}
+.amount--value{
+  font-size: 24px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
+}
+.icon{
+  color: #fff;
+  padding: 1rem;
+  height: 60px;
+  width: 60px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  background: red;
+}
+.card--detail{
+  font-size: 18px;
+  color: #777777;
+  letter-spacing: 2px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/************* tabular wrapper ***********************/
+.tabular--wrapper{
+  background: #fff;
+  margin-top: 1rem;
+  border-radius: 10px 10px 0px 0px ;
+  padding-left: 2rem;
+}
+.tabular--wrapper1 {
+  background: #fff;
+  margin-top: 1rem;
+  border-radius: 0px 0px 10px 10px;
+  padding: 2rem;
+  margin-top: 0px;
+  height: 37vh;
+  transition: all 0.5s ease-in-out;
+  flex: 1; /* Allow it to grow and shrink based on available space */
+  overflow: hidden; /* Add this line to hide any content overflow */
+}
+
+
+.chart-transition {
+  transition: transform 0.5s ease-in-out;
+  max-width: 100%; /* Add this line to allow the chart to shrink */
+}
+tfoot td{
+  padding: 15px;
+}
+.table-container button{
+  color: green;
+  background: none;
+  cursor: pointer;
+  
+}
+.table-container {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+  width: 100%;
+}
+
+.table-visible {
+  opacity: 1;
+  max-height: 500px; /* Set a value that suits your table height */
+}
+table{
+  width: 100%;
+  border-collapse: collapse;
+}
+thead{
+  background-color: #226F54;
+  color: #fff;
+}
+th{
+  padding: 15px;
+  text-align: left;
+}
+tbody{
+  background: #f2f2f2;
+}
+td{
+  padding: 15px;
+  font-size: 14px;
+  color: #333;
+}
+tr:nth-child(even){
+  background: #fff;
+}
+tfoot{
+  background: rgba(113, 99, 186, 255);
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Admin div transition ****************************************************************/
+.admin {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+  width: 100%;
+  
+}
+.arg{
+  display: grid;
+  grid-template-columns: 3fr 3fr;
+  column-gap: 10%;
+  margin: 0;
+}
+.admin-visible {
+  opacity: 1;
+  max-height: 500px; /* Adjust height as needed */
+}
+.emp, .emp1 {
+  background: rgb(236, 236, 254); /* Same background color as the payment cards */
+  border-radius: 10px;
+  padding: 1.2rem;
+  height: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.5s ease-in-out;
+  margin-top: 10vh;
+}
+
+/* Hover effect for the emp and emp1 divs */
+.emp:hover, .emp1:hover {
+  transform: translateY(-5px);
+}
+
+/* Remove bullets from ul in the emp and emp1 divs */
+.emp ul, .emp1 ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Style for the list items in the emp and emp1 divs */
+.emp li, .emp1 li {
+  padding: 1rem;
+  margin: 8px 0;
+  border-radius: 8px;
+  transition: all 0.5s ease-in-out;
+}
+
+/* Hover effect for list items in the emp and emp1 divs */
+.emp li:hover, .emp1 li:hover {
+  background: greenyellow;
+}
+
+/* Adjust margin for the list items in the emp and emp1 divs */
+.emp li:last-child, .emp1 li:last-child {
+  margin-bottom: 0;
+}
+/* End **************************************************************/
+/* earning chart ***********************************************************************/
+/* earning chart */
+.earning {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out, opacity 0.5s ease-out, height 0.5s ease-out; /* Add height transition */
+  width: 100%;
+  border-radius: 0px 0px 10px 10px;
+}
+
+.earning-visible {
+  opacity: 1;
+  max-height: 500px; /* Adjust height as needed */
+  height: 200px; /* Set height when visible */
+  border-radius: 0px 0px 10px 10px;
+}
+
+#earningChart {
+  width: 100%;
+  border-radius: 0px 0px 10px 10px;
+  height: 100%;
+}
+
+
+/* FOR TABLE OVERLAY ON THE CHART */
+
+/* color css */
+.light-red{
+  background: rgb(251, 233, 233);
+}
+.light-purple{
+  background: rgb(254, 226, 254);
+}
+.light-green{
+  background: rgb(235, 226, 235);
+}
+.light-blue{
+  background-color: rgb(236, 236, 254);
+}
+.dark-red{
+  background: red;
+}
+.dark-green{
+  background: green;
+}
+.dark-purple{
+  background: purple;
+}
+.dark-blue{
+  background: blue;
+}

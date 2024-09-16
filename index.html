@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Green Cover</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="index.css">
+<style>
+            .logo{
+            height: 65px;
+            top:0px;
+            position: absolute;
+        }
+        .nav>li>a{
+            font-size: 18px;
+            margin-top: 15px;
+            font-family: "Nunito", sans-serif;
+        }
+        .navbar-default .navbar-nav>li>a{
+            color: #12871b;
+        }
+
+        #space{
+            margin-right: 15px;
+        }
+        .container{
+          background: #000 url("https://images.unsplash.com/photo-1546229632-9d370c6cb21a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80");
+          color: #fff;
+          width: 100%;
+          height :700px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          background-position: center;
+          background-size: cover
+        }
+        .overlay {
+          width: 100%;
+          height: 100%;
+          background: #4ce054;
+          opacity: .3;
+          position: absolute;
+         }
+        .content h1{
+            font-family: 'Roboto' ;
+            font-size: 90px;
+            z-index: 1;
+            text-align: center;
+            font-weight: 600;
+        }
+        .content{
+            padding-top: 15%;
+            text-align: center;
+            text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+                         0px 8px 13px rgba(0,0,0,0.1),
+                         0px 18px 23px rgba(0,0,0,0.1);
+        }
+        .btn{
+            color: #12871b;
+        }
+        h3{
+            font-family: Courier New, monospace;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        hr {
+            width: 500px;
+            border-top: 1px solid #f8f8f8;
+            border-bottom: 1px solid rgba(0,0,0,0.2);
+        }
+        .Head{
+            font-size: 60px;
+            font-weight: -100;
+            color:#12871b;
+            text-align: center;
+            font-family: 'Julius Sans One';
+            text-transform: uppercase;
+            padding-top: 50px;
+        }
+        .tabcontent{
+            text-align: center;
+        }
+        .card{
+            padding-top: 50px;
+            text-align: center;
+            padding-bottom: 50px;
+            font-family: Courier New, monospace;
+            font-weight: 540;
+            font-size: 17px;
+            color:#777a77;
+        }
+        .contact{
+            background:#25942e;
+            padding-top: 20px;
+            text-align: center;
+            padding-bottom: 20px;
+            font-family: Courier New, monospace;
+            font-weight: 545;
+            font-size: 17px;
+            color:white;
+        }
+        #bold{
+            font-size: 25px;
+            font-family: 'Julius Sans One';
+            font-weight: 600;
+            text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+                         0px 8px 13px rgba(0,0,0,0.1),
+                         0px 18px 23px rgba(0,0,0,0.1);
+
+        }
+        #menu:hover{
+            color:#2fe03d;
+        }
+</style>
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-nav-demo" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+				<a href="#" class="navbar-brand"><img  class="logo" src="static/logon.png" alt="logo"></a>
+			</div>
+			<div class="collapse navbar-collapse" id="bs-nav-demo">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a id="menu" href="#home">HOME</a></li>
+					<li><a id="menu" href="#how">HOW IT WORKS</a></li>
+					<li><a id="menu" href="#about">ABOUT</a></li>
+					<li><a id="menu" href="#contact" id="space">CONTACT</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<a name="home"></a>
+	<div class="container">
+	<div class="overlay"></div>
+ 	<div class="row">
+ 		<div class="col-lg-12">
+ 			<div class="content">
+ 				<h1>GREEN COVER DETECTOR</h1>
+ 				<h3>Green Cover Detector calculates the green part 
+ 				<br>and building part in Satellite maps. Provides comparision
+ 				<br> between both areas to detect if area is green certified or not.</h3>
+ 				<hr>
+ 				<form action="/map" entype="multipart/formdata">
+					<button class="btn btn-default btn-lg" onclick="map()"><i class="fa fa-pagelines" aria-hidden="true"></i> Get Started!</button>
+				</form>
+ 			</div>
+ 		</div>
+ 	</div>
+ </div>
+<a name="how"></a>
+<div class="tabcontent col-lg-12 col-md-12 col-sm-12">
+  <h1 class="Head">How it works</h1>
+  <div class= "card col-lg-12 col-md-12 col-sm-12">Green Cover Detector is designed to calculate green area in any part of the world.
+  	<br>
+      Using Google Earth Engine and Numpy with Python, Satellite Imagery<br> from Landsta-8 and Copernicus and geojson.io.
+     
+      <br>Select Map in Get Started button and map will pop-up. <br>Select desired co-ordinates and select Submit.
+      <br>You'll find Green Area, Built Area, Green Certification and Recommendations in new window.<br>
+      You can use the same technique to find Green Area in any part of the world.
+  </div>
+<a name="about"></a>
+  <h1 class="Head">About us</h1>
+  <div class="card col-lg-12 col-md-12 col-sm-12">The concept of Smart City can be defined as collection of services and <br>infrastructures deployed and built to enhance the quality of life of the citizens<br> and are supported by using information and communication technologies.
+      <br>The augmentation of conventional city services and infrastructures with ICT technologies, systems <br>and advanced applications, the everyday life experience becomes<br> more effective, quick, flexible and more sustainable.
+      <br>Smart cities adopt such core systems through the use of technology to efficiently <br>and effectively utilize their limited resources.</div>
+</div>
+  <h1 class="Head"><a name="contact"></a>Contact us</h1>
+ <div class="contact col-lg-12 col-md-12 col-sm-12">
+<br>
+<div class="col-lg-6 col-md-6 col-sm-6"><br><span id="bold"><i class="fa fa-map-marker" aria-hidden="true"></i>
+ADDRESS</span>
+<br>1st Floor Smart City Lab - HPCC Building
+<br>NED University of Engineering and Technology
+<br>Main University Road, Block 1
+<br>Gulistan-e-Johar
+<br>Karachi(75270)-Sindh
+</div>
+  <div class="col-lg-6 col-md-6 col-sm-6"><br><span id="bold"><i class="fa fa-phone" aria-hidden="true"></i>Phone Number:</span><br>+92-2199261261
+<br>Fax:(+92-21)99261255
+<br>Extn No:2682</div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!-- <script type="text/javascript" src="js/nav.js"></script> -->
+<!-- <script type="text/javascript" src="js/main.js"></script> -->
+
+</body>
+</html>

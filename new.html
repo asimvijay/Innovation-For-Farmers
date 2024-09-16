@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="styleresult.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700" rel="stylesheet">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script> -->
+  
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+    <link rel="mask-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">
+    <link rel="canonical" href="https://codepen.io/mahish/pen/RajmQw">
+  
+    
+    
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  
+    
+  
+    
+  <script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeConsoleRunner-7549a40147ccd0ba0a6b5373d87e770e49bb4689f1c2dc30cccc7463f207f997.js"></script>
+  <script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRefreshCSS-5e03f34e38152f20eb79c96b0b89c2d99c5085e9ae9386dc71e2f0b3c30bf513.js"></script>
+  <script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRuntimeErrors-4f205f2c14e769b448bcf477de2938c681660d5038bc464e3700256713ebe261.js"></script>
+  
+</head>
+<body>
+    <div id="first"><img class="imgvi" id="imgvi" src="./static/viplot/1.jpg" />
+        <!-- <div id="coord1"></div> -->
+        <div id="my1" style="margin-left: 120px; color: green;"></div>
+        <div class="menu-wrapper">
+          <ul class="menu">
+           
+            <li class="item"><a onclick="GetIndex(this)" style="cursor: pointer;">1st </a></li><!--
+            -->
+            <li class="item"><a onclick="GetIndex(this)" style="cursor: pointer;">2nd</a></li>
+            <li class="item"><a onclick="GetIndex(this)" style="cursor: pointer;">3rd</a></li>
+            <li class="item"><a onclick="GetIndex(this)" style="cursor: pointer;">4th</a></li>
+            
+           
+
+       
+        
+        
+          </ul>
+        
+          <div class="paddles">
+            <button class="left-paddle paddle hidden">
+              &lt;
+            </button>
+            <button class="right-paddle paddle">
+              &gt;
+            </button>
+          </div>
+        </div>
+        <script>
+          function GetIndex(sender)
+            {   
+                var aElements = sender.parentNode.parentNode.getElementsByTagName("a");
+                var aElementsLength = aElements.length;
+              
+                 var pathvi =[['a.jpg','b.jpg','c.jpg','d.jpg']];
+             
+                var index;
+                for (var i = 0; i < aElementsLength; i++)
+                {
+                    if (aElements[i] == sender) //this condition is never true
+                    {
+                        index = i;
+                  
+                      document.getElementById('imgvi') 
+                      .src=pathvi[i];
+                 
+                    }
+                      
+                }
+            }
+            </script>
+        <script>
+            $(document).ready(function () {
+              $('.imgvi').click(function (e) {
+                var offset = $(this).offset();
+                var X = (e.pageX - offset.left);
+                var Y = (e.pageY - offset.top);
+                var row = 4;
+                var col = 4;
+                var total = 500;
+                let resultX = Math.round((parseInt(X) / parseInt(total)) * parseInt(col));
+                let resultY = Math.round((parseInt(Y) / parseInt(total)) * parseInt(row));
+            
+                var ndvi =;
+            
+                // $('#coord').text('X: ' + X + ', Y: ' + Y +  ', col: ' + col + ', resultX: ' + resultX + ', resultY: ' + resultY + ', ndvi' + ndvi);
+                // $('#coord2').text('X: ' + X + ', Y: ' + Y + ", resultY: " + resultY + ', resultX :' + resultX);
+                $('#my1').text(' NDVI: ' + ndvi[resultY][resultX]);
+        
+                
+        
+               
+            
+                
+                // $('#coord1').text('X: ' + X + ', Y: ' + Y + ", resultY: " + resultY + ', resultX :' + resultX);
+             
+              });
+            });
+          </script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+/* <div class="lines">
+        <div class="line" ><h1>L</h1></div> 
+        <div class="line1" ><h1>O</h1></div>
+        <div class="line2" ><h1>A</h1></div>
+        <div class="line3" ><h1>D</h1></div>
+        <div class="line4" ><h1>I</h1></div>
+        <div class="line5" ><h1>N</h1></div>
+        <div class="line6" ><h1>G</h1></div>
+        
+      </div>
+      .lines {
+        position: fixed;
+        height: 90vh;
+        width: 80%;
+        margin-left: 20vw;
+        display: flex;
+        flex-wrap: wrap;
+        transform-origin: top center;
+        justify-content: center;
+        text-align: center;
+        justify-items: center;
+        animation: disappearLeftToRight 1s ease-in-out forwards;
+        animation-delay: 3.5s;
+    } */
+    
+    @keyframes disappearLeftToRight {
+        0% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        100% {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+    }
+    
+      
+      .lines div {
+        width: 14.2%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      
+      .line h1,
+      .line1 h1,
+      .line2 h1,
+      .line3 h1,
+      .line4 h1,
+      .line5 h1,
+      .line6 h1 {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Glow effect on text */
+        opacity: 1; /* Set opacity to 1 to make the text visible */
+      }
+      
+      .line h1 {
+        animation: jumpL 0.5s forwards;
+      }
+      
+      .line1 h1 {
+        animation: jumpO 0.5s forwards;
+        animation-delay: 0.5s;
+      }
+      
+      .line2 h1 {
+        animation: jumpA 0.5s forwards;
+        animation-delay: 1s;
+      }
+      
+      .line3 h1 {
+        animation: jumpD 0.5s forwards;
+        animation-delay: 1.5s;
+      }
+      
+      .line4 h1 {
+        animation: jumpI 0.5s forwards;
+        animation-delay: 2s;
+      }
+      
+      .line5 h1 {
+        animation: jumpN 0.5s forwards;
+        animation-delay: 2.5s;
+      }
+      
+      .line6 h1 {
+        animation: jumpG 0.5s forwards;
+        animation-delay: 3s;
+      }
+      
+      @keyframes jumpL {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px); /* Adjust the jump height as needed */
+        }
+      }
+      
+      /* Similar keyframes for other letters */
+      
+      /* Keyframes for 'O' */
+      @keyframes jumpO {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+      
+      /* Keyframes for 'A' */
+      @keyframes jumpA {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+      
+      /* Keyframes for 'D' */
+      @keyframes jumpD {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+      
+      /* Keyframes for 'I' */
+      @keyframes jumpI {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+      
+      /* Keyframes for 'N' */
+      @keyframes jumpN {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+      
+      /* Keyframes for 'G' */
+      @keyframes jumpG {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+      
+     /*  */

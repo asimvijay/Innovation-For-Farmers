@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="author" content="unsorry">
+  <meta name="description" content="leaflet draw export to geojson file">
+
+  
+
+  <title>Satellite Imagery</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <!-- <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
+  <link rel="stylesheet" type="text/css" href="styleresult.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700" rel="stylesheet">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+    <link rel="mask-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">
+    <link rel="canonical" href="https://codepen.io/mahish/pen/RajmQw">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    
+  
+<script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeConsoleRunner-7549a40147ccd0ba0a6b5373d87e770e49bb4689f1c2dc30cccc7463f207f997.js"></script>
+<script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRefreshCSS-5e03f34e38152f20eb79c96b0b89c2d99c5085e9ae9386dc71e2f0b3c30bf513.js"></script>
+<script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRuntimeErrors-4f205f2c14e769b448bcf477de2938c681660d5038bc464e3700256713ebe261.js"></script>
+    
+  <script src="https://www.webglearth.com/v2/api.js"></script>
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+  <style>
+    .leaflet-popup-content-wrapper, .leaflet-popup.tip {
+  background-color: #000;
+  color:rgb(250, 247, 247)
+}
+.custom-popup .leaflet-popup-tip-container {
+  width:30px;
+  height:15px;
+  }
+  </style>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
+  <!-- <link rel="stylesheet" href="assets/css/leaflet-measure.css"> -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+  <!-- <link rel="stylesheet" href="assets/css/app.css"> -->
+
+
+  <!--  -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <!--  -->
+  <style>
+    html, body, #container {
+  height: 100%;
+  width: 100%;
+  /* overflow: hidden; */
+}
+#map1,#map2 {
+  width: auto;
+  height: 65%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+    .logo {
+      height: 65px;
+      top: 0px;
+      position: absolute;
+    }
+
+    .nav>li>a {
+      font-size: 18px;
+      margin-top: 15px;
+      font-family: "Nunito", sans-serif;
+    }
+
+    .navbar-default .navbar-nav>li>a {
+      color: #040404;
+    }
+
+    #imgvi {
+      margin-top: 60px;
+      margin-left: 20px;
+      height: 500px;
+      width: 500px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      -webkit-transition: margin-top 0.7s;
+      transition: margin-top 0.6s;
+      transition-timing-function: ease-out;
+      -webkit-transition-timing-function: ease-out;
+      -moz-transition: margin-top 0.6s;
+      -moz-transition-timing-function: ease-out;
+    }
+
+    #imgmi {
+      margin-top: 60px;
+      margin-right: 20px;
+      height: 500px;
+      width: 500px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      -webkit-transition: margin-top 0.7s;
+      transition: margin-top 0.6s;
+      transition-timing-function: ease-out;
+      -webkit-transition-timing-function: ease-out;
+      -moz-transition: margin-top 0.6s;
+      -moz-transition-timing-function: ease-out;
+    }
+    
+    #imgre {
+      margin-top: 60px;
+      margin-right: 20px;
+      height: 500px;
+      width: 500px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      -webkit-transition: margin-top 0.7s;
+      transition: margin-top 0.6s;
+      transition-timing-function: ease-out;
+      -webkit-transition-timing-function: ease-out;
+      -moz-transition: margin-top 0.6s;
+      -moz-transition-timing-function: ease-out;
+    }
+    #imgms {
+      margin-top: 60px;
+      margin-right: 20px;
+      height: 500px;
+      width: 500px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      -webkit-transition: margin-top 0.7s;
+      transition: margin-top 0.6s;
+      transition-timing-function: ease-out;
+      -webkit-transition-timing-function: ease-out;
+      -moz-transition: margin-top 0.6s;
+      -moz-transition-timing-function: ease-out;
+    }
+
+
+    label {
+      display: block;
+      font: 1rem 'Fira Sans', sans-serif;
+    }
+
+    input,
+    label {
+      margin: .4rem 0;
+    }
+
+
+    .img1 {
+      top: 30px;
+      right: 80px;
+      margin-right: -60px;
+      margin-top: -30px;
+      position: absolute;
+      height: 70px;
+    }
+
+    #shadow {
+      box-shadow:
+        0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+        0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+        0 6.5px 10px rgba(0, 0, 0, 0.06),
+        0 6.3px 17.9px rgba(0, 0, 0, 0.072),
+        0 1.8px 33.4px rgba(0, 0, 0, 0.06),
+        0 10px 80px rgba(0, 0, 0, 0.12);
+      border-radius: 20px;
+      border: none;
+      text-align: left;
+      font-weight: 700;
+      color: rgb(80, 212, 32);
+    }
+
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+
+    }
+
+    .text1 {
+      margin-left: 5px;
+      margin-top: 20px;
+      margin-left: 70px;
+      font-size: 17px;
+      text-align: center;
+      text-align: left;
+      text-transform: uppercase;
+      letter-spacing: 20px;
+      color: rgb(22, 133, 19);
+      font-style: italic;
+    }
+
+    .text2 {
+      margin-left: -10px;
+      font-size: 18px;
+      text-align: center;
+      font-family: Courier New, monospace;
+      color: rgb(22, 133, 19);
+      font-style: italic;
+    }
+
+    .button {
+      font-size: 18px;
+      display: block;
+      text-align: left;
+    }
+
+    .text {
+      font-size: 15px;
+      text-align: left;
+      color: rgb(54, 143, 21);
+      font-family: "Nunito", sans-serif;
+      font-weight: 100;
+    }
+
+    .btnl {
+      background-color: #3c9c19;
+      border: none;
+      color: white;
+      padding: 5px 16px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 50px;
+      border-radius: 20px;
+      font-family: "Nunito", sans-serif;
+      display: outline-block;
+    }
+
+    /* Darker background on mouse-over */
+
+    .btnl:hover {
+      box-shadow:
+        0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+        0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+        0 6.5px 10px rgba(0, 0, 0, 0.06),
+        0 6.3px 17.9px rgba(0, 0, 0, 0.072),
+        0 1.8px 33.4px rgba(0, 0, 0, 0.06),
+        0 10px 80px rgba(0, 0, 0, 0.12);
+    }
+
+    .button:hover {
+      box-shadow:
+        0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+        0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+        0 12.5px 10px rgba(0, 0, 0, 0.06),
+        0 6.3px 17.9px rgba(0, 0, 0, 0.072),
+        0 1.8px 33.4px rgba(0, 0, 0, 0.06),
+        0 10px 80px rgba(0, 0, 0, 0.12);
+    }
+
+    /**{
+      box-sizing: border-box;
+    }*/
+    .column {
+      padding: 10px;
+      margin-top: 40px;
+      text-align: left;
+    }
+
+    .column1 {
+      padding: 10px;
+      margin-top: 40px;
+      /*margin-left: 20px;*/
+      padding-left: 45px;
+    }
+
+    .head {
+      color: rgb(54, 143, 21);
+      font-family: "Nunito", sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 18px;
+    }
+
+    .button1 {
+      margin-top: 80px;
+      margin-left: 150px;
+      padding: 10px 50px 10px 50px;
+      background: #3c9c19;
+      color: white;
+      font-weight: 100;
+      cursor: pointer;
+      font-size: 22px;
+      display: inline-block;
+      border-radius: 30px;
+      font-family: "Nunito", sans-serif;
+    }
+
+    body {
+      background-image: url("https://c7.uihere.com/files/870/865/119/green-fresh-leaf-border-texture.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+/* 
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .btn {
+      margin-top: 20px;
+      margin-left: 150px;
+      padding: 10px 50px 10px 50px;
+      background: #3c9c19;
+      color: white;
+      font-weight: 100;
+      cursor: pointer;
+      font-size: 18px;
+      display: inline-block;
+      border-radius: 30px;
+      font-family: "Nunito", sans-serif;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 225px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+
+    .dropdown-menu a {
+      color: black;
+      text-align: center;
+
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-menu a:hover {
+      background-color: #ddd;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown:hover .btn {
+      color: #f1f1f1;
+    }
+
+    .btn:hover {
+      box-shadow:
+        0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+        0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+        0 12.5px 10px rgba(0, 0, 0, 0.06),
+        0 6.3px 17.9px rgba(0, 0, 0, 0.072),
+        0 1.8px 33.4px rgba(0, 0, 0, 0.06),
+        0 10px 80px rgba(0, 0, 0, 0.12);
+    } */
+    .btn {
+  background-color: #3b3f44;
+  color: #fbf4f4;
+  padding: 10px;
+  font-size: 14px;
+  border: none;
+  text-align: left;
+
+  /* #######new */
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' %3e%3cpath fill='%23fff' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-size:1.3em;
+  background-position-y: center;
+  background-position-x: right;
+  
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #3b3f44;
+  min-width: 200px;
+  box-shadow: none;
+  z-index: 1;
+}
+a:not([href]):not([class]), a:not([href]):not([class]):hover {
+    color: #f1f1f1;
+    text-decoration: none;
+}
+.dropdown-menu a {
+  color: #fbf4f4;
+  padding: 3px 12px;
+  text-decoration: none;
+  display: block;
+  font-size: 13.5px;
+}
+.dropdown-item {
+  color: #fbf4f4;
+  padding: 3px 12px;
+  text-decoration: none;
+  display: block;
+  font-size: 13.5px;
+}
+
+.dropdown-menu a:hover {background-color: rgb(111, 111, 111);}
+
+.dropdown:hover .dropdown-menu {display: block;}
+
+.dropdown:hover .btn {color:#f1f1f1;} 
+.btn:hover {
+            box-shadow:
+                0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+                0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+                0 12.5px 10px rgba(0, 0, 0, 0.06),
+                0 6.3px 17.9px rgba(0, 0, 0, 0.072),
+                0 1.8px 33.4px rgba(0, 0, 0, 0.06),
+                0 10px 80px rgba(0, 0, 0, 0.12);
+        }
+        .dropdown-toggle::after{
+      /* margin-left:5.25em; */    visibility: hidden;
+     /* margin-left: 5.66em; */
+    }
+    /* #second {
+      display: none
+    }
+    #third {
+      display: none
+    }
+    #fourth {
+      display: none
+    } */
+    .form-select{
+      width:100%;color: #fbf4f4;
+    background-color: #3b3f44;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' %3e%3cpath fill='%23fff' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    border-color:#3b3f44 ;
+  
+  }
+    .n{
+      width:100%;color: #fbf4f4;
+    background-color: #3b3f44;
+    appearance: none;
+ padding: .375rem 0.5rem .3rem .5rem;
+ outline: none !important;
+    box-shadow: none !important;
+
+    /* background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' %3e%3cpath fill='%23fff' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e"); */
+    }
+    select{
+width:100%;color: #fbf4f4;
+    background-color: #3b3f44;
+    appearance: none;
+    border-color:#3b3f44
+        }
+        /* select option:hover{
+color: #fbf4f4;
+    background-color: #3b3f44;
+    appearance: none;
+        } */
+        /* select option {
+        background-color: #3b3f44;
+        color: #fbf4f4;
+} 
+
+select:hover{
+    background-color: #3b3f44;
+        color: #fbf4f4;
+} */
+/* select:active{
+    background-color: none;
+        color: #fbf4f4;
+} */
+select:active, 
+select:active,
+select:focus, 
+select:focus,
+select:hover, 
+select:hover{
+    border:none !important;
+    outline:none !important;
+    box-shadow: none;
+    outline-color: transparent;
+    border-color:#3b3f44
+}
+select.active.focus, select.active:focus, select.focus, select:active.focus, select:active:focus, select:focus {
+  outline:none !important;
+    border:none !important;
+    border-color:#3b3f44
+}
+
+.menu-wrapper {
+  position: relative;
+  max-width: 100%;
+  height: 50px;
+  margin: 0em auto;
+  /* border: 1px solid black; */
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.menu {
+  height: 120px;
+  background: #3b3f44;
+  color:#bbcbbb;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+.menu .item {
+  display: inline-block;
+  width: 300px;
+  height: 100%;
+  color: #fbf4f4;
+  text-align: center;
+  border-right: 2px dotted rgb(112, 114, 112);
+  padding: 1em;
+  box-sizing: border-box;
+}
+
+.paddle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3em;
+}
+
+.left-paddle {
+  left: 0;
+  background: #3b3f44;
+  color:#bbcbbb;
+  border-left:none;
+  border-right: groove;
+  border-top: none;
+  border-bottom: none;
+  border-right-color: #bbcbbb;
+}
+
+.right-paddle {
+  right: 0;
+  background: #3b3f44;
+  color:#bbcbbb;
+  outline: #3b3f44;
+  /* border: none; */
+  border-left:groove;
+  border-right: none;
+  border-top: none;
+  border-bottom: none;
+  border-left-color: #bbcbbb;
+}
+
+.hidden {
+  display: none;
+}
+
+.print {
+  margin: auto;
+  max-width: 500px;
+}
+.print span {
+  display: inline-block;
+  width: 100px;
+}
+
+
+
+
+  </style>
+
+</head>
+<body>
+  <div id="map1" >
+  
+    <!-- <input type="button" value="kk"  onclick="ss()" style="z-index: 100;" /> -->
+    <!-- <div id="map3"></div> -->
+</div>
+<div class="menu-wrapper">
+  <ul id="first" class="menu" >
+    {% for dates in   dates_arr   %}
+    <li class="item"><a onclick="GetNdvi(this)" style="cursor: pointer;">{{dates}}</a></li><!--
+    -->
+    
+    {% endfor %}
+
+
+
+
+  </ul>
+  
+  <ul id="second" style="display: none;"class="menu" >
+    {% for dates in   dates_arr   %}
+    <li class="item"><a onclick="GetNdmi(this)" style="cursor: pointer;">{{dates}}</a></li><!--
+    -->
+    
+    {% endfor %}
+  </ul>
+  <ul id="third" style="display: none;"class="menu" >
+    {% for dates in   dates_arr   %}
+    <li class="item"><a onclick="GetNdre(this)" style="cursor: pointer;">{{dates}}</a></li><!--
+    -->
+    
+    {% endfor %}
+  </ul>
+  <ul id="fourth" style="display: none;"class="menu" >
+    {% for dates in   dates_arr   %}
+    <li class="item"><a onclick="GetMsavi(this)" style="cursor: pointer;">{{dates}}</a></li><!--
+    -->
+    
+    {% endfor %}
+  </ul>
+  
+
+  <div class="paddles">
+    <button class="left-paddle paddle hidden">
+      &lt;
+    </button>
+    <button class="right-paddle paddle">
+      &gt;
+    </button>
+  </div>
+</div>
+<div class="row" style="padding: 0px;margin:0px">
+  <div class="col-md-2" style=" background-color: #90ae90;">    <div class="d-flex flex-column justify-content-start" style="margin-top:10px ;margin-bottom: 10px;" >
+
+    <div class="p-2"><div class="n" >
+      <div  style="font-size:13px; color: #bbcbbb;">Index :</div>
+      <div class="dropdown" id="1">
+        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" style="width: 190px;">
+          NDVI
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <!-- <a class="dropdown-item" >Vegetation Indices</a> -->
+          <a id="ndvi1" class="dropdown-item btnsvi" onClick="my1()">NDVI</a>
+          <!-- <div class="dropdown-divider"></div>  -->
+          <!-- <a class="dropdown-item" >Moisture Indices</a> -->
+          <a id="ndmi2" class="dropdown-item btnsmi" onClick="my2()">NDMI</a>
+          <a id="ndre3" class="dropdown-item btnsre" onClick="my3()">NDRE</a>
+          <a id="msavi4" class="dropdown-item btnsms" onClick="my4()">MS
+            AVI</a>
+        
+        </div>
+      </div></div>
+  
+    </div> <div class="p-2"><div class="n" >
+      <div  style="font-size:13px; color: #bbcbbb;">Weather Data :</div>
+      <div class="dropdown" id="2">
+        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" style="width: 190px;">
+          Temperature
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+        
+          <a id="tmp"class="dropdown-item btnstmp">Temperature</a>
+          <a id="hum" class="dropdown-item btnshum">Humidity</a>
+        </div>
+      </div></div>
+  
+    </div>
+    <div class="p-2"><div class="n" aria-label="Default select example">
+      <div class="row" style="flex-wrap: nowrap;">
+        <div class="col-md-9"><div class="row"></div>  <div class="col-md-10 mb-1" style="font-size:13px; color: #bbcbbb;"> Start date :</div> <div class="col-md-9" style="font-size:14px;text-align:left;padding-left: 10px;">{{startdate}}</div> </div>
+        <div class="col-md-3 mb-3" style="padding-left:20px ;"><svg style="margin-top:20px ;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
+          <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+          <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg></div>
+      </div>
+      </div></div>
+  
+  <div class="p-2"><div class="n" aria-label="Default select example">
+      <div class="row" style="flex-wrap: nowrap;">
+        <div class="col-md-9"><div class="row"></div>  <div class="col-md-10 mb-1" style="font-size:13px; color: #bbcbbb;"> End date :</div> <div class="col-md-9" style="font-size:14px;text-align:left;padding-left: 10px;">{{enddate}}</div> </div>
+        <div class="col-md-3 mb-3" style="padding-left:20px ;"><svg style="margin-top:20px ;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
+          <path d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+          <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/></svg></div>
+      </div>
+      </div></div>
+</div></div>
+
+  <div class="col-md-10" style=" padding-left: 0px;padding-right: 0px;"><div id="chart" style="width:100%;height:350px;background-color:#bbcbbb;">
+            
+  </div></div>
+</div>
+<!-- <div id="con">
+  
+  <ul class="menu">
+        
+    <li class="item"><a onclick="GetIndex(this)" style="cursor: pointer;">1st </a></li>
+    <li class="item"><a onclick="GetIndex(this)" style="cursor: pointer;">2nd </a></li>
+
+  </ul>
+ <button onclick="img1('1.jpg','0')">imaage 1</button>
+ <button onclick="img1('2.jpg','1')">imaage 2</button>
+ <button onclick="img1('img2.jpg')">imaage 3</button>
+</div> -->
+<script type="text/javascript">
+  function f1() {
+    var sourceOfPicture = "https://freefrontend.com/assets/img/css-progress-bars/Loading-Bar.gif";
+    var img = document.getElementById('bigpic')
+    img.src = sourceOfPicture.replace('90x90', '225x225');
+    img.style.display = "block";
+  }
+  function myFunction() {
+    var x = document.getElementById("start").value;
+    document.getElementById("demo").innerHTML = x;
+  }
+      // function change() {
+      //     document.getElementById('image').src = "static/2.jpg";
+      // }
+</script>
+<script>
+  // duration of scroll animation
+var scrollDuration = 300;
+// paddles
+var leftPaddle = document.getElementsByClassName('left-paddle');
+var rightPaddle = document.getElementsByClassName('right-paddle');
+// get items dimensions
+var itemsLength = $('.item').length;
+var itemSize = $('.item').outerWidth(true);
+// get some relevant size for the paddle triggering point
+var paddleMargin = 20;
+
+// get wrapper width
+var getMenuWrapperSize = function() {
+  return $('.menu-wrapper').outerWidth();
+}
+var menuWrapperSize = getMenuWrapperSize();
+// the wrapper is responsive
+$(window).on('resize', function() {
+  menuWrapperSize = getMenuWrapperSize();
+});
+// size of the visible part of the menu is equal as the wrapper size 
+var menuVisibleSize = menuWrapperSize;
+
+// get total width of all menu items
+var getMenuSize = function() {
+  return itemsLength * itemSize;
+};
+var menuSize = getMenuSize();
+// get how much of menu is invisible
+var menuInvisibleSize = menuSize - menuWrapperSize;
+
+// get how much have we scrolled to the left
+var getMenuPosition = function() {
+  return $('.menu').scrollLeft();
+};
+
+// finally, what happens when we are actually scrolling the menu
+$('.menu').on('scroll', function() {
+
+  // get how much of menu is invisible
+  menuInvisibleSize = menuSize - menuWrapperSize;
+  // get how much have we scrolled so far
+  var menuPosition = getMenuPosition();
+
+  var menuEndOffset = menuInvisibleSize - paddleMargin;
+
+  // show & hide the paddles 
+  // depending on scroll position
+  if (menuPosition <= paddleMargin) {
+    $(leftPaddle).addClass('hidden');
+    $(rightPaddle).removeClass('hidden');
+  } else if (menuPosition < menuEndOffset) {
+    // show both paddles in the middle
+    $(leftPaddle).removeClass('hidden');
+    $(rightPaddle).removeClass('hidden');
+  } else if (menuPosition >= menuEndOffset) {
+    $(leftPaddle).removeClass('hidden');
+    $(rightPaddle).addClass('hidden');
+}
+
+  // print important values
+  $('#print-wrapper-size span').text(menuWrapperSize);
+  $('#print-menu-size span').text(menuSize);
+  $('#print-menu-invisible-size span').text(menuInvisibleSize);
+  $('#print-menu-position span').text(menuPosition);
+
+});
+
+// scroll to left
+$(rightPaddle).on('click', function() {
+  $('.menu').animate( { scrollLeft: menuInvisibleSize}, scrollDuration);
+});
+
+// scroll to right
+$(leftPaddle).on('click', function() {
+  $('.menu').animate( { scrollLeft: '0' }, scrollDuration);
+});
+</script>
+<!-- <script type="text/javascript">
+      myvar = '{{dic}}';
+      document.write(myvar);
+
+  </script> -->
+  <script>
+    $(document).ready(function(){
+$("#dropdownMenuButton1").click(function(){
+  $(".dropdown-menu#1").slideToggle();
+});
+
+$("dropdown-menu li a").click(function(){
+  $(".dropdown-menu").slideToggle();
+});
+
+$("#ndvi1").click(function(){
+  $("#dropdownMenuButton1").html('NDVI');
+});
+
+$("#ndmi2").click(function(){
+  $("#dropdownMenuButton1").html('NDMI');
+});
+$("#ndre3").click(function(){
+  $("#dropdownMenuButton1").html('NDRE');
+});
+$("#msavi4").click(function(){
+  $("#dropdownMenuButton1").html('MSAVI');
+});
+
+
+});
+$(document).ready(function(){
+$("#dropdownMenuButton2").click(function(){
+  $(".dropdown-menu#2").slideToggle();
+});
+
+$("dropdown-menu li a").click(function(){
+  $(".dropdown-menu").slideToggle();
+});
+
+
+$("#tmp").click(function(){
+  $("#dropdownMenuButton2").html('Temperature');
+});
+
+
+
+$("#hum").click(function(){
+  $("#dropdownMenuButton2").html('Humidity');
+});
+});
+    </script>
+      <script>
+        $(document).ready(function () {
+          $(".btnsvi").click(function () {
+            google.charts.load("current", { packages: ["corechart"] }).then(function () {
+      // declare data variable
+      var arrayData;
+        arrayData = {{dicvi | safe  }};
+        drawChart(arrayData);
+    });
+            function drawChart(arrayData) {
+              arrayData = arrayData.map(function (row) {
+        return [new Date(row[0]),row[1],row[2],row[3]];
+      });
+              var data = new google.visualization.DataTable();
+              data.addColumn('date', 'Time of Day');
+              data.addColumn('number', 'min');
+              data.addColumn('number', 'avg');
+              data.addColumn('number', 'max');
+              data.addRows(arrayData);
+    
+          var options = {
+            title: 'NDVI',
+            pointsVisible: true,
+            crosshair: { trigger: 'both' },
+            chartArea: {
+              left: 90,    bottom: 52,top:70, // !!! works !!!
+                width:1050,
+              backgroundColor: {
+                fill: '#6f916f',
+                fillOpacity: 0.7,
+               
+    
+              },
+            },
+            backgroundColor: {
+              fill: '#f1f1f1',
+              fillOpacity: 0
+            },
+    
+            vAxis: {
+              gridlines: { color: '#939393' },
+              minValue: -1,
+              maxValue: 1,
+              textStyle: { color: '#6a7179' }, showColorCode: true,
+    
+    
+            },
+            hAxis: {
+              ticks: data.getDistinctValues(0),format: "MMM d", gridlines: {
+            color: 'transparent'},
+              textStyle: { color: '#575a5e' }, showColorCode: true,
+    
+    
+            }
+          };
+    
+          var chart = new google.visualization.LineChart(document.getElementById('chart'));
+          chart.draw(data, options);
+        };  });
+                });
+    
+      </script>
+    
+      <script>
+        const my1 = () => {
+          document.getElementById("first").style.display = 'block';
+          document.getElementById("second").style.display = 'none';
+          document.getElementById("third").style.display = 'none';
+          document.getElementById("fourth").style.display = 'none';
+    
+        }
+    
+        const my2 = () => {;
+          document.getElementById("second").style.display = 'block';
+          document.getElementById("first").style.display = 'none';
+          document.getElementById("third").style.display = 'none';
+          document.getElementById("fourth").style.display = 'none';
+    
+        }
+        const my3 = () => {
+          document.getElementById("third").style.display = 'block';
+          document.getElementById("second").style.display = 'none';
+          document.getElementById("first").style.display = 'none';
+          document.getElementById("fourth").style.display = 'none';
+    
+        }
+        const my4 = () => {
+          document.getElementById("fourth").style.display = 'block';
+          document.getElementById("third").style.display = 'none';
+          document.getElementById("second").style.display = 'none';
+          document.getElementById("first").style.display = 'none';
+    
+        }
+    
+    
+      </script>
+      <script type="text/javascript">
+        $(document).ready(function () {
+          $(".btnsmi").click(function () {
+    
+            google.charts.load("current", { packages: ["corechart"] }).then(function () {
+      // declare data variable
+      var arrayData;
+        arrayData = {{dicmi | safe  }};
+        drawChart(arrayData);
+    });
+            function drawChart(arrayData) {
+              arrayData = arrayData.map(function (row) {
+        return [new Date(row[0]),row[1],row[2],row[3]];
+      });
+              var data = new google.visualization.DataTable();
+              data.addColumn('date', 'Date');
+              data.addColumn('number', 'min');
+              data.addColumn('number', 'avg');
+              data.addColumn('number', 'max');
+              data.addRows(arrayData);
+    
+          var options = {
+            title: 'NDMI',
+            pointsVisible: true,
+            crosshair: { trigger: 'both' },
+            chartArea: {
+              left: 90, // !!! works !!!
+              bottom: 52,top:70,width:1050,
+              backgroundColor: {
+                fill: '#6f916f',
+                fillOpacity: 0.7,
+              
+    
+              },
+            },
+            backgroundColor: {
+              fill: '#f1f1f1',
+              fillOpacity: 0
+            },
+    
+            vAxis: {
+              gridlines: { color: '#939393' },
+              minValue: -1,
+              maxValue: 1,
+              textStyle: { color: '#6a7179' }, showColorCode: true,
+    
+    
+            },
+            hAxis: {
+              ticks: data.getDistinctValues(0),format: "MMM d", gridlines: {
+            color: 'transparent'},
+              textStyle: { color: '#575a5e' }, showColorCode: true,
+    
+    
+            }
+          };
+    
+          var chart = new google.visualization.LineChart(document.getElementById('chart'));
+          chart.draw(data, options);
+        }
+            });
+                });
+      </script>
+    
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $(".btnsre").click(function () {
+    
+          google.charts.load("current", { packages: ["corechart"] }).then(function () {
+    // declare data variable
+    var arrayData;
+      arrayData = {{dicre | safe  }};
+      drawChart(arrayData);
+    });
+          function drawChart(arrayData) {
+            arrayData = arrayData.map(function (row) {
+      return [new Date(row[0]),row[1],row[2],row[3]];
+    });
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'Date');
+            data.addColumn('number', 'min');
+            data.addColumn('number', 'avg');
+            data.addColumn('number', 'max');
+            data.addRows(arrayData);
+        var options = {
+          title: 'NDRE',
+          pointsVisible: true,
+          crosshair: { trigger: 'both' },
+          chartArea: {
+            left: 90, // !!! works !!!
+            bottom: 52,top:70,width:1050,
+            backgroundColor: {
+              fill: '#6f916f',
+              fillOpacity: 0.7,
+            
+    
+            },
+          },
+          backgroundColor: {
+            fill: '#f1f1f1',
+            fillOpacity: 0
+          },
+    
+          vAxis: {
+            gridlines: { color: '#939393' },
+            minValue: -1,
+            maxValue: 1,
+            textStyle: { color: '#6a7179' }, showColorCode: true,
+    
+    
+          },
+          hAxis: {
+            ticks: data.getDistinctValues(0),format: "MMM d", gridlines: {
+          color: 'transparent'},
+            textStyle: { color: '#575a5e' }, showColorCode: true,
+    
+    
+          }
+        };
+    
+        var chart = new google.visualization.LineChart(document.getElementById('chart'));
+        chart.draw(data, options);
+      }
+          });
+              });
+    </script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $(".btnsms").click(function () {
+    
+          google.charts.load("current", { packages: ["corechart"] }).then(function () {
+    // declare data variable
+    var arrayData;
+      arrayData = {{dicms | safe  }};
+      drawChart(arrayData);
+    });
+          function drawChart(arrayData) {
+            arrayData = arrayData.map(function (row) {
+      return [new Date(row[0]),row[1],row[2],row[3]];
+    });
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'Date');
+            data.addColumn('number', 'min');
+            data.addColumn('number', 'avg');
+            data.addColumn('number', 'max');
+            data.addRows(arrayData);
+        var options = {
+          title: 'MSAVI',
+          pointsVisible: true,
+          crosshair: { trigger: 'both' },
+          chartArea: {
+            left: 90, // !!! works !!!
+            bottom: 52,top:70,width:1050,
+            backgroundColor: {
+              fill: '#6f916f',
+              fillOpacity: 0.7,
+            
+    
+            },
+          },
+          backgroundColor: {
+            fill: '#f1f1f1',
+            fillOpacity: 0
+          },
+    
+          vAxis: {
+            gridlines: { color: '#939393' },
+            minValue: -1,
+            maxValue: 1,
+            textStyle: { color: '#6a7179' }, showColorCode: true,
+    
+    
+          },
+          hAxis: {
+            ticks: data.getDistinctValues(0),format: "MMM d", gridlines: {
+          color: 'transparent'},
+            textStyle: { color: '#575a5e' }, showColorCode: true,
+    
+    
+          }
+        };
+    
+        var chart = new google.visualization.LineChart(document.getElementById('chart'));
+        chart.draw(data, options);
+      }
+          });
+              });
+    </script>
+      <script>
+        $(document).ready(function () {
+          $(".btnstmp").click(function () {
+    
+    
+            google.charts.load("current", { packages: ["corechart"] }).then(function () {
+      // declare data variable
+      var arrayData;
+        arrayData = {{dictmp | safe }};
+        drawChart(arrayData);
+    });
+            function drawChart(arrayData) {
+              arrayData = arrayData.map(function (row) {
+        return [new Date(row[0]),row[1],row[2],row[3]];
+      });
+    
+              var data = new google.visualization.DataTable();
+              data.addColumn('date', 'Date');
+              data.addColumn('number', 'avg');
+              data.addColumn('number', 'min');
+              data.addColumn('number', 'max');
+              data.addRows(arrayData);
+          var options = {
+            title: 'Temperature',
+            pointsVisible: true,
+            crosshair: { trigger: 'both' },
+            chartArea: {
+              left: 90, // !!! works !!!
+              bottom: 52,top:70,width:1050,
+              backgroundColor: {
+                fill: '#6f916f',
+                fillOpacity: 0.7,
+         
+    
+              },
+            },
+            backgroundColor: {
+              fill: '#f1f1f1',
+              fillOpacity: 0
+            },
+    
+            vAxis: {
+              gridlines: { color: '#939393' },
+    
+              textStyle: { color: '#6a7179' }, showColorCode: true,
+    
+    
+            },
+            hAxis: { ticks: data.getDistinctValues(0), showTextEvery:3,
+              format: "MMM d", gridlines: {
+            color: 'transparent'},
+              textStyle: { color: '#575a5e' }, showColorCode: true,
+    
+    
+            }
+          };
+    
+          var chart = new google.visualization.LineChart(document.getElementById('chart'));
+          chart.draw(data, options);
+        };  });
+                    });
+    
+      </script>
+      <script>
+        $(document).ready(function () {
+          $(".btnshum").click(function () {
+    
+    
+            google.charts.load("current", { packages: ["corechart"] }).then(function () {
+      // declare data variable
+      var arrayData;
+        arrayData = {{ dichum | safe }};
+        drawChart(arrayData);
+    });;
+            google.charts.setOnLoadCallback(drawChart);
+            function drawChart(arrayData) {
+              arrayData = arrayData.map(function (row) {
+        return [new Date(row[0]),row[1]];
+      });
+              var data = new google.visualization.DataTable();
+              data.addColumn('datetime', 'Time of Day');
+              data.addColumn('number', 'Hum');
+              data.addRows(arrayData);
+    
+          var options = {
+            title: 'Humidity',
+            pointsVisible: true,
+            crosshair: { trigger: 'both' },
+            chartArea: {
+              left: 90, // !!! works !!!
+              bottom: 52,top:70,width:1050,
+              backgroundColor: {
+                fill: '#6f916f',
+                fillOpacity: 0.7,
+              
+    
+              },
+            },
+            backgroundColor: {
+              fill: '#f1f1f1',
+              fillOpacity: 0
+            },
+    
+            vAxis: {
+              gridlines: { color: '#939393' },
+              textStyle: { color: '#6a7179' }, showColorCode: true,
+    
+    
+            },
+            hAxis: { ticks: data.getDistinctValues(0), showTextEvery:75,
+            format: "MMM d", gridlines: {
+            color: 'transparent'},
+              textStyle: { color: '#575a5e' }, showColorCode: true,
+    
+    
+            }
+          };
+    
+          var chart = new google.visualization.LineChart(document.getElementById('chart'));
+          chart.draw(data, options);
+        };  });
+                });
+    
+      </script>
+
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+  <!-- <script src="assets/js/leaflet-measure.js"></script> -->
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+  <!-- <script src="app.js">
+  </script> -->
+
+<script>
+  var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+var osmAttrib='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+
+var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib});
+var lat= {{ polygonss | safe  }};
+var t=lat[0][0];
+var n= lat[0][1];
+var map = new L.Map('map1').addLayer(osm).setView([t,n], 15);
+
+//search bar
+// L.Control.geocoder({position:'topleft'}).addTo(map);
+//Layers Control
+	//makers
+	const marker = L.marker([t, n]).addTo(map);
+
+	//satellies
+	const googleSat = L.tileLayer('http://{s}.google.com/vt?lyrs=s&x={x}&y={y}&z={z}',{
+		maxZoom: 20,
+		subdomains:['mt0','mt1','mt2','mt3']
+	}, {drawControl:true} );
+	googleSat.addTo(map)
+
+	const googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
+		maxZoom: 20,
+		subdomains:['mt0','mt1','mt2','mt3']
+	});
+	googleHybrid.addTo(map)
+
+	//const googleTerrain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',{
+		//maxZoom: 20,
+		//subdomains:['mt0','mt1','mt2','mt3']
+	//});
+	//googleTerrain.addTo(map)
+
+	var baseMaps = {
+		"OSM" : osm,
+		"GoogleSat" : googleSat,
+		//"GoogleTerrain" :googleTerrain,
+		"GoogleHybrid" : googleHybrid,
+	  
+	
+	}
+	var overlayMaps = {
+	   "marker" : marker, 
+	   
+	}
+	
+	L.control.layers(baseMaps,overlayMaps, {position: 'bottomright'}).addTo(map);
+
+//scale map
+	var scale = L.control.scale({position:'bottomleft'}).addTo(map);
+
+
+
+// // Leaflet Draw
+// var drawnItems = new L.FeatureGroup();
+// map.addLayer(drawnItems);
+// var drawControl = new L.Control.Draw({
+// edit: {
+// featureGroup: drawnItems,
+// poly : {
+// allowIntersection : false
+// }
+// },
+// draw: {
+// circle: true,
+// circlemarker: false,
+// polygon : {
+// allowIntersection: true,
+// showArea:true
+// }
+// }
+// });
+// map.addControl(drawControl);
+// map.on('draw:created', function (e) {
+// 	var type = e.layerType,
+// 		layer = e.layer;
+
+// 	if (type === 'polygon' || type === 'rectangle') {
+// 		// structure the geojson object
+// 		var geojson = {};
+// 		geojson['type'] = 'Feature';
+// 		geojson['geometry'] = {};
+// 		geojson['geometry']['type'] = "Polygon";
+
+// 		// export the coordinates from the layer
+// 		coordinates = [];
+// 		latlngs = layer.getLatLngs();
+// 		for (var i = 0; i < latlngs.length; i++) {
+// 			coordinates.push([latlngs[i].lng, latlngs[i].lat])
+// 		}
+
+// 		// push the coordinates to the json geometry
+// 		geojson['geometry']['coordinates'] = [coordinates];
+// 		fetch('/result', {
+
+// 			// Specify the method
+// 			method: 'POST',
+
+// 			// A JSON payload
+// 			body: JSON.stringify({
+// 				geojson
+// 			})
+// 		}).then(function (response) { // At this point, Flask has printed our JSON
+// 			return response.text();
+// 		}).then(function (text) {
+
+// 			console.log('POST response: ');
+
+// 			// Should be 'OK' if everything was successful
+// 			console.log(text);
+// 		});
+
+// 		// Finally, show the poly as a geojson object in the console
+// 		window.alert("Co-ordinates are saved\nPlease click Submit to proceed");
+// 		var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(geojson));
+// 		document.getElementById("dis").disabled = false;
+
+
+// 	}
+
+// 	else {
+// 		window.alert("Co-ordinates are not selected. \n Please select coordinates with the help of Rectangle or Polygon.");
+// 		document.getElementById("dis").disabled = true;
+// 	}
+
+// 	drawnItems.addLayer(layer);
+
+
+// });
+
+
+// addImage
+
+
+</script>
+<script>
+  function GetNdvi(sender){
+    var aElements = sender.parentNode.parentNode.getElementsByTagName("a");
+                var aElementsLength = aElements.length;
+	
+                var pathvi ={{pathvi | safe }};
+	
+	var index;
+	for (var i = 0; i < aElementsLength; i++)
+	{
+		if (aElements[i] == sender) //this condition is never true
+		{
+			index = i;
+			var imageUrl = pathvi[i];
+      
+			imageBounds = {{ polygonss | safe  }};
+	
+			var overlay =L.imageOverlay(imageUrl, imageBounds,{interactive:true}).addTo(map)
+			
+				overlay.on('mouseover', function(e){
+					
+					var f = e.originalEvent;
+					var overlayImage = overlay._image;
+					var rect = f.target.getBoundingClientRect();
+					var zoomedX = f.clientX - rect.left; //x position within the element.
+					var zoomedY = f.clientY - rect.top;  //y position within the element
+					var rows = "{{nrowsvi}}" - 1;
+					var cols="{{ncolsvi}}" - 1;;
+			
+					const x = Math.round(zoomedX * overlayImage.naturalWidth / rect.width);
+					const y = Math.round(zoomedY * overlayImage.naturalHeight / rect.height);
+		
+					const X = Math.round((x /overlayImage.naturalWidth)* cols);
+					const Y = Math.round((y/overlayImage.naturalHeight)* rows);
+		
+					
+					var ndvi = JSON.parse("{{ ndvi }}");
+					u= ndvi[index]
+					var a = u[Y][X].toFixed(2);
+						var popup = L.popup()
+						popup.setLatLng(e.latlng)
+						popup.setContent('NDVI = '+a)
+						popup.openOn(map);			
+				});
+		
+
+
+		}
+	        overlay.on('mousemove', function(e){
+					
+					var f = e.originalEvent;
+					var overlayImage = overlay._image;
+					var rect = f.target.getBoundingClientRect();
+					var zoomedX = f.clientX - rect.left; //x position within the element.
+					var zoomedY = f.clientY - rect.top;  //y position within the element
+					var rows = "{{nrowsvi}}" - 1;
+					var cols="{{ncolsvi}}" - 1;;
+			
+					const x = Math.round(zoomedX * overlayImage.naturalWidth / rect.width);
+					const y = Math.round(zoomedY * overlayImage.naturalHeight / rect.height);
+		
+					const X = Math.round((x /overlayImage.naturalWidth)* cols);
+					const Y = Math.round((y/overlayImage.naturalHeight)* rows);
+
+          
+		
+					
+					var ndmi = JSON.parse("{{ ndvi }}");
+		
+					u= ndmi[index]
+					var a = u[Y][X].toFixed(2);
+						var popup = L.popup({
+  closeButton: false,
+  autoClose: true
+})
+						popup.setLatLng(e.latlng)
+						popup.setContent('NDVI = '+a)
+						popup.openOn(map);
+					
+					
+				});
+        
+      
+        overlay.on('mouseout', function (e) {
+          map.closepopup(popup)
+      });	  
+	}
+		
+	map.setMaxBounds(imageBounds);
+}
+
+</script>
+<script>
+  function GetNdmi(sender){
+	var aElements = sender.parentNode.parentNode.getElementsByTagName("a");
+                var aElementsLength = aElements.length;
+	
+                var pathmi ={{pathmi | safe }};
+	
+	var index;
+	for (var i = 0; i < aElementsLength; i++)
+	{
+		if (aElements[i] == sender) //this condition is never true
+		{
+			index = i;
+			var imageUrl = pathmi[i];
+      
+			imageBounds = {{ polygonss | safe  }};
+	
+			var overlay =L.imageOverlay(imageUrl, imageBounds,{interactive:true}).addTo(map)
+			
+				overlay.on('mouseover', function(e){
+					
+					var f = e.originalEvent;
+					var overlayImage = overlay._image;
+					var rect = f.target.getBoundingClientRect();
+					var zoomedX = f.clientX - rect.left; //x position within the element.
+					var zoomedY = f.clientY - rect.top;  //y position within the element
+					var rows = "{{nrowsvi}}" - 1;
+					var cols="{{ncolsvi}}" - 1;;
+			
+					const x = Math.round(zoomedX * overlayImage.naturalWidth / rect.width);
+					const y = Math.round(zoomedY * overlayImage.naturalHeight / rect.height);
+		
+					const X = Math.round((x /overlayImage.naturalWidth)* cols);
+					const Y = Math.round((y/overlayImage.naturalHeight)* rows);
+
+          
+		
+					
+					var ndmi = JSON.parse("{{ ndmi }}");
+		
+					u= ndmi[index]
+					var a = u[Y][X].toFixed(2);
+						var popup = L.popup({
+  closeButton: false,
+  autoClose: true
+})
+						popup.setLatLng(e.latlng)
+						popup.setContent('NDMI = '+a)
+						popup.openOn(map);
+					
+					
+				});
+        overlay.on('mousemove', function(e){
+					
+					var f = e.originalEvent;
+					var overlayImage = overlay._image;
+					var rect = f.target.getBoundingClientRect();
+					var zoomedX = f.clientX - rect.left; //x position within the element.
+					var zoomedY = f.clientY - rect.top;  //y position within the element
+					var rows = "{{nrowsvi}}" - 1;
+					var cols="{{ncolsvi}}" - 1;;
+			
+					const x = Math.round(zoomedX * overlayImage.naturalWidth / rect.width);
+					const y = Math.round(zoomedY * overlayImage.naturalHeight / rect.height);
+		
+					const X = Math.round((x /overlayImage.naturalWidth)* cols);
+					const Y = Math.round((y/overlayImage.naturalHeight)* rows);
+
+          
+		
+					
+					var ndmi = JSON.parse("{{ ndmi }}");
+		
+					u= ndmi[index]
+					var a = u[Y][X].toFixed(2);
+						var popup = L.popup({
+  closeButton: false,
+  autoClose: true
+})
+						popup.setLatLng(e.latlng)
+						popup.setContent('NDMI = '+a)
+						popup.openOn(map);
+					
+					
+				});
+        
+      
+        overlay.on('mouseout', function (e) {
+          map.closepopup(popup)
+      });
+		}
+		  
+	}
+
+
+
+	
+			
+		
+	map.setMaxBounds(imageBounds);
+}
+
+</script>
+<script>
+  function GetNdre(sender){
+	var aElements = sender.parentNode.parentNode.getElementsByTagName("a");
+                var aElementsLength = aElements.length;
+	
+                var pathre ={{pathre | safe }};
+	
+	var index;
+	for (var i = 0; i < aElementsLength; i++)
+	{
+		if (aElements[i] == sender) //this condition is never true
+		{
+			index = i;
+			var imageUrl = pathre[i];
+      
+			imageBounds = {{ polygonss | safe  }};
+	
+			var overlay =L.imageOverlay(imageUrl, imageBounds,{interactive:true}).addTo(map)
+			
+				overlay.on('mouse-over', function(e){
+					
+					var f = e.originalEvent;
+					var overlayImage = overlay._image;
+					var rect = f.target.getBoundingClientRect();
+					var zoomedX = f.clientX - rect.left; //x position within the element.
+					var zoomedY = f.clientY - rect.top;  //y position within the element
+					var rows = "{{nrowsvi}}" - 1;
+					var cols="{{ncolsvi}}" - 1;;
+			
+					const x = Math.round(zoomedX * overlayImage.naturalWidth / rect.width);
+					const y = Math.round(zoomedY * overlayImage.naturalHeight / rect.height);
+		
+					const X = Math.round((x /overlayImage.naturalWidth)* cols);
+					const Y = Math.round((y/overlayImage.naturalHeight)* rows);
+		
+					
+					var ndre = JSON.parse("{{ ndre }}");
+		
+					u= ndre[index]
+					var a = u[Y][X].toFixed(2);
+						var popup = L.popup()
+						popup.setLatLng(e.latlng)
+						popup.setContent('NDRE = '+a)
+						popup.openOn(map);
+					
+					
+				});
+        overlay.on('mousemove', function(e){
+					
+					var f = e.originalEvent;
+					var overlayImage = overlay._image;
+					var rect = f.target.getBoundingClientRect();
+					var zoomedX = f.clientX - rect.left; //x position within the element.
+					var zoomedY = f.clientY - rect.top;  //y position within the element
+					var rows = "{{nrowsvi}}" - 1;
+					var cols="{{ncolsvi}}" - 1;;
+			
+					const x = Math.round(zoomedX * overlayImage.naturalWidth / rect.width);
+					const y = Math.round(zoomedY * overlayImage.naturalHeight / rect.height);
+		
+					const X = Math.round((x /overlayImage.naturalWidth)* cols);
+					const Y = Math.round((y/overlayImage.naturalHeight)* rows);
+		
+					
+					var ndre = JSON.parse("{{ ndre }}");
+		
+					u= ndre[index]
+					var a = u[Y][X].toFixed(2);
+						var popup = L.popup()
+						popup.setLatLng(e.latlng)
+						popup.setContent('NDRE = '+a)
+						popup.openOn(map);
+					
+					
+				});
+        overlay.on('mouseout', function (e) {
+          map.closepopup(popup)
+      });
+		}
+		  
+	}
+
+
+
+	
+			
+		
+	map.setMaxBounds(imageBounds);
+}
+
+</script>
+<script>
+  function GetMsavi(sender){
+	var aElements = sender.parentNode.parentNode.getElementsByTagName("a");
+                var aElementsLength = aElements.length;
+	
+                var pathms ={{pathms | safe }};
+	
+	var index;
+	for (var i = 0; i < aElementsLength; i++)
+	{
+		if (aElements[i] == sender) //this condition is never true
+		{
+			index = i;
+			var imageUrl = pathms[i];
+      
+			imageBounds = {{ polygonss | safe  }};
+	
+			var overlay =L.imageOverlay(imageUrl, imageBounds,{interactive:true}).addTo(map)
+			
+				overlay.on('mouse-over', function(e){
+					
+					var f = e.originalEvent;
+					var overlayImage = overlay._image;
+					var rect = f.target.getBoundingClientRect();
+					var zoomedX = f.clientX - rect.left; //x position within the element.
+					var zoomedY = f.clientY - rect.top;  //y position within the element
+					var rows = "{{nrowsvi}}" - 1;
+					var cols="{{ncolsvi}}" - 1;;
+			
+					const x = Math.round(zoomedX * overlayImage.naturalWidth / rect.width);
+					const y = Math.round(zoomedY * overlayImage.naturalHeight / rect.height);
+		
+					const X = Math.round((x /overlayImage.naturalWidth)* cols);
+					const Y = Math.round((y/overlayImage.naturalHeight)* rows);
+		
+					
+					var msavi = JSON.parse("{{ msavi }}");
+		
+					u= msavi[index]
+					var a = u[Y][X].toFixed(2);
+						var popup = L.popup()
+						popup.setLatLng(e.latlng)
+						popup.setContent('MSAVI = '+a)
+						popup.openOn(map);
+					
+					
+				});
+        overlay.on('mousemove', function(e){
+					
+					var f = e.originalEvent;
+					var overlayImage = overlay._image;
+					var rect = f.target.getBoundingClientRect();
+					var zoomedX = f.clientX - rect.left; //x position within the element.
+					var zoomedY = f.clientY - rect.top;  //y position within the element
+					var rows = "{{nrowsvi}}" - 1;
+					var cols="{{ncolsvi}}" - 1;;
+			
+					const x = Math.round(zoomedX * overlayImage.naturalWidth / rect.width);
+					const y = Math.round(zoomedY * overlayImage.naturalHeight / rect.height);
+		
+					const X = Math.round((x /overlayImage.naturalWidth)* cols);
+					const Y = Math.round((y/overlayImage.naturalHeight)* rows);
+		
+					
+					var msavi = JSON.parse("{{ msavi }}");
+		
+					u= msavi[index]
+					var a = u[Y][X].toFixed(2);
+						var popup = L.popup()
+						popup.setLatLng(e.latlng)
+						popup.setContent('MSAVI = '+a)
+						popup.openOn(map);
+					
+					
+				});
+
+        overlay.on('mouseout', function (e) {
+          map.closepopup(popup)
+      });
+		}
+		  
+	}
+
+
+
+	
+			
+		
+	map.setMaxBounds(imageBounds);
+}
+
+</script>
+   
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
+  <style>
+    body{
+      font-size: 14px;
+    font-family: Helvetica, sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 400;
+    line-height: 1;
+
+   }
+  
+  </style>
+  
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+    <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+      <script src="https://cdpn.io/cpe/boomboom/pen.js?key=pen.js-358f6f61-d0ef-437b-bea2-cd0100e9c736" crossorigin=""></script>
+  
+</body>
+</html>

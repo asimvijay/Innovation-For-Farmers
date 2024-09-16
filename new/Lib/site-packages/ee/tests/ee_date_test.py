@@ -1,0 +1,108 @@
+#!/usr/bin/env python3
+"""Test for the ee.date module."""
+
+import datetime
+import json
+
+import ee
+from ee import apitestcase
+import unittest
+
+
+class DateTest(apitestcase.ApiTestCase):
+
+  def test_date(self):
+    """Verifies date constructors."""
+
+    datefunc = ee.ApiFunction.lookup('Date')
+
+    d1 = ee.Date('2000-01-01')
+    d2 = ee.Date(946684800000)
+    d3 = ee.Date(datetime.datetime(2000, 1, 1))
+    d4 = ee.Date(d3)
+    dates = [d1, d2, d3, d4]
+
+    for d in dates:
+      self.assertIsInstance(d, ee.Date)
+      self.assertEqual(datefunc, d.func)
+
+    self.assertEqual(d1.args, {'value': '2000-01-01'})
+    for d in dates[1:]:
+      self.assertEqual(d.args['value'], 946684800000)
+
+    d5 = ee.Date(ee.CustomFunction.variable('Date', 'foo'))
+    self.assertIsInstance(d5, ee.Date)
+    self.assertTrue(d5.isVariable())
+    self.assertEqual('foo', d5.varName)
+
+    # A non-date variable.
+    v = ee.CustomFunction.variable('Number', 'bar')
+    d6 = ee.Date(v)
+    self.assertIsInstance(d6, ee.Date)
+    self.assertFalse(d6.isVariable())
+    self.assertEqual(datefunc, d6.func)
+    self.assertEqual({'value': v}, d6.args)
+
+    # A non-date ComputedObject, promotion and casting.
+    obj = ee.ApiFunction.call_('DateRange', 1, 2)
+    d7 = ee.Date(obj)
+    self.assertIsInstance(d7, ee.Date)
+    self.assertEqual(datefunc, d7.func)
+    self.assertEqual({'value': obj}, d7.args)
+
+  def test_date_is_not_valid(self):
+    message = r'Invalid argument specified for ee.Date\(\): \[\'a list\']'
+    with self.assertRaisesRegex(ValueError, message):
+      ee.Date(['a list'])  # pytype: disable=wrong-arg-types
+
+  def test_timezone(self):
+    self.assertEqual(
+        {'timeZone': 'America/New_York', 'value': '2018-04-23'},
+        ee.Date('2018-04-23', 'America/New_York').args,
+    )
+
+  def test_timezone_ee_string(self):
+    date_str = '2018-04-23'
+    timezone = ee.String('America/New_York')
+    self.assertEqual(
+        {'timeZone': timezone, 'value': date_str},
+        ee.Date(date_str, timezone).args,
+    )
+
+  def test_date_ee_string_with_timezone(self):
+    date_str = '2018-04-23'
+    date_string = ee.String(date_str)
+    timezone = 'America/New_York'
+    self.assertEqual(
+        {'timeZone': timezone, 'value': date_string},
+        ee.Date(date_string, timezone).args,
+    )
+
+  def test_timezone_not_a_string(self):
+    message = r'Invalid argument specified for ee.Date\(\.\.\., opt_tz\): 123'
+    with self.assertRaisesRegex(ValueError, message):
+      ee.Date('2018-04-23', 123)  # pytype: disable=wrong-arg-types
+
+    with self.assertRaisesRegex(ValueError, message):
+      ee.Date(ee.String('2018-04-23'), 123)  # pytype: disable=wrong-arg-types
+
+  def test_with_reducer(self):
+    date_int = 42
+    column = 'date column'
+    fc = ee.FeatureCollection([ee.Feature(None, {column: date_int})])
+    reduced = fc.reduceColumns(ee.Reducer.max(), [column])
+    end = ee.Date(reduced.get('max')).format()
+
+    # Probe for the Date function call that will vanish if argument promotion
+    # is not handled correctly.
+    value_0 = json.loads(end.serialize())['values']['0']
+    date = value_0['functionInvocationValue']['arguments']['date']
+    function_name = date['functionInvocationValue']['functionName']
+    self.assertEqual('Date', function_name)
+
+  def test_name(self):
+    self.assertEqual('Date', ee.Date.name())
+
+
+if __name__ == '__main__':
+  unittest.main()

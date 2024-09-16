@@ -1,0 +1,14 @@
+Metadata-Version: 2.1
+Name: staticmap
+Version: 0.5.7
+Summary: A small, python-based library for creating map images with lines and markers.
+Home-page: https://github.com/komoot/staticmap
+Download-URL: https://github.com/komoot/staticmap/tarball/0.1
+Author: Christoph Lingg
+Author-email: christoph@komoot.de
+Keywords: static map image osm
+License-File: LICENSE.txt
+Requires-Dist: Pillow
+Requires-Dist: requests
+Requires-Dist: futures ; python_version < "3.2"
+

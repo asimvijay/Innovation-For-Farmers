@@ -1,0 +1,789 @@
+<!-- DASHBOARD -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-sidebar-v2@0.3.0/src/L.Control.Sidebar.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/Control.OSMGeocoder.css')}}">
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
+
+    
+</head>
+
+</head>
+<link rel="stylesheet" href="{{url_for('static',filename='style1.css')}}">
+
+
+<body style="height: 100vh; width: 100%; ">
+
+    
+    <div class="sidebar">
+        <div class="logo"><img src="./static/sprout.png" alt=""></div>
+        
+
+        <ul class="menu">
+            <li class="active" onclick="toggleSidebar()" id="myFieldsBtn">
+                <a href="#">
+                    <i class="fa-solid fa-leaf"></i>
+                    <span>My Fields</span>
+                </a>
+            </li>
+            
+            
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-group-arrows-rotate"></i>
+                    <span>Crop Rotation</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-smog"></i>
+                    <span>NDVI MAP</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" id="saved-field-button">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Saved Fields</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-question-circle"></i>
+                    <span>FAQ</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Notes</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+            <li class="logout">
+                <a href="{{ url_for('login') }}">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="sidebar2">
+        <div class="bk">
+            <center>
+                <h3>FIELDS</h3>
+            </center>
+        </div>
+
+        <ul class="menu1" id="field-list">
+            <!-- Field items will be dynamically added here -->
+        </ul>
+        
+    </div>
+    <div class="sidebar3 hidden">
+        <div class="bk">
+            <center>
+                <h4>SAVED FIELDS</h4>
+            </center>
+        </div>
+
+        <ul class="menu2" id="saved-field">
+            <!-- Field items will be dynamically added here -->
+        </ul>
+        
+    </div>
+    
+    
+    <div class="main--content">
+        <center>
+            <div class="header--wrapper">
+                <div class="header--title">
+                    <h2 style="color:#226F54 ;">Satellite-Crop-Monitoring</h2>
+                </div>
+                <div class="user--info">
+                    <!-- Add this button in your HTML template where appropriate -->
+                    <div class="search--box">
+                        <button class="btn btn-success"  onclick="ExportGeoJSON()">Export to GeoJSON</button>
+
+                       
+                    </div>
+                    
+                    <img src="./static/image/person.jpg" alt="">
+                </div>
+                
+            </div>
+        </center>
+        
+        
+
+        
+        <div id="map"> </div>
+        
+    </div>
+
+    <!-- Add this <div> at the bottom of your HTML body -->
+        <div id="latLngDisplay" class="latLngDisplay"></div>
+
+    
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
+<script src="https://unpkg.com/leaflet-sidebar-v2@0.3.0/src/L.Control.Sidebar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@google/earthengine@0.1.249/build/ee_api_js.js"></script>
+<script src="{{url_for('static', filename='assets/js/control.OSMGeocoder.js')}}"></script>
+
+
+<!-- ... (your HTML code) ... -->
+
+<script>
+     var map = L.map('map').setView([24.8607, 67.0011], 14);
+        // Set up the OSM layer
+        googleHybrid = L.tileLayer('http://mt0.google.com/vt/lyrs=y&hl=en&x={x}&y={y}&z={z}&s=Ga', {
+            maxZoom: 20,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        }).addTo(map);
+        // map.createPane("snapshot-pane");
+        const snapshotOptions = {
+  hideElementsWithSelectors: [
+    ".leaflet-control-container"
+  ],
+  hidden: true
+};
+
+    // Add Control.Geocoder plugin
+    var geocoder = L.Control.geocoder({
+        defaultMarkGeocode: false
+    })
+        .on('markgeocode', function (e) {
+            if (currentBoundingBox) {
+                map.removeLayer(currentBoundingBox);
+            }
+
+            var bbox = e.geocode.bbox;
+            currentBoundingBox = L.polygon([
+                bbox.getSouthEast(),
+                bbox.getNorthEast(),
+                bbox.getNorthWest(),
+                bbox.getSouthWest()
+            ]).addTo(map);
+
+            map.fitBounds(currentBoundingBox.getBounds());
+        })
+        .addTo(map);
+
+    var drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
+
+    // Initialise the draw control and pass it the FeatureGroup of editable layers
+    self = this;
+    self.drawControl = new L.Control.Draw({
+        draw: true,
+        edit: {
+            featureGroup: drawnItems
+        }
+    });
+    // Initialize an array to store GeoJSON data for each field
+    var fieldGeoJSONData = [];
+
+    // Update the sidebar with GeoJSON data for each field
+    function updateSidebar(layer) {
+    var fieldList = document.getElementById('field-list');
+    fieldList.innerHTML = '';
+
+
+    drawnItems.eachLayer(function (layer) {
+        var listItem = document.createElement('li');
+        listItem.className = 'field-item';
+        listItem.dataset.layerId = layer._leaflet_id;
+
+        // Extract necessary data for each field item
+        var fieldData = {
+            type: 'Feature',
+            geometry: {
+                type: 'Polygon',
+                coordinates: [] // Initialize coordinates array
+            },
+            properties: {
+                name: layer.options.name, // Set the name property to the entered field name
+                fieldid: layer._leaflet_id // Set the fieldid property to the layer's leaflet ID
+            }
+        };
+
+        // Extract coordinates for the field
+        var coordinates = [];
+        if (layer instanceof L.Polygon) {
+            layer.getLatLngs()[0].forEach(function (latLng) {
+                coordinates.push([latLng.lng, latLng.lat]);
+            });
+        } else if (layer instanceof L.Circle) {
+            // Handle Circle geometry if needed
+        }
+
+        // Push coordinates to the fieldData
+        fieldData.geometry.coordinates.push(coordinates);
+
+        // Update the sidebar with field information
+        listItem.innerHTML = `<div class="field-header">
+                                    <img src="./static/hel.webp" alt="Field Image"> ${fieldData.properties.name}
+                                    <i class="rename-icon fas fa-pencil-alt" onclick="renameField('${fieldData.properties.fieldid}')"></i>
+                                    <i class="delete-icon fas fa-trash-alt" onclick="deleteField('${fieldData.properties.fieldid}')"></i>
+                                </div>
+                                <div class="field-content">
+                                    <br><div id="areaDisplay_${fieldData.properties.fieldid}" class="area-display"></div>
+                                    <!-- Add save button initially hidden -->
+                                    <center>
+                                        <form action="/result" enctype="multipart/formdata">
+                                            <button class="button" onclick="submitField('${fieldData.properties.fieldid}')"><b>SUBMIT</b></button>
+                                        </form>
+                                    </center>
+                                </div>`;
+
+        // Add event listener for field item click
+        listItem.addEventListener('click', function () {
+            toggleFieldExpansion(listItem);
+            toggleSaveButtonVisibility(listItem);
+            
+        });
+
+        // Append the field item to the sidebar
+        fieldList.appendChild(listItem);
+
+        // Push field data to the fieldGeoJSONData array
+        fieldGeoJSONData.push(fieldData);
+    });
+}
+
+function toggleSaveButtonVisibility(item) {
+    var saveButton = item.querySelector('.save-shape-btn');
+    if (saveButton) {
+        saveButton.style.display = item.classList.contains('expanded') ? 'block' : 'none';
+    }
+}
+// Define array to store field data
+var fieldData = [];
+function displayArea(layer, areaDisplay) {
+    // Clear the areaDisplay
+    areaDisplay.innerHTML = '';
+
+    // If the layer is a polygon or circle
+    if (layer instanceof L.Polygon || layer instanceof L.Circle) {
+        // Get the GeoJSON representation of the layer
+        var geoJSON = layer.toGeoJSON();
+
+        // Display the coordinates from the GeoJSON
+        areaDisplay.innerHTML += '<br>Coordinates: ' + JSON.stringify(geoJSON.geometry.coordinates);
+    } else if (layer instanceof L.Polyline) {
+        // For polylines, you can display the coordinates of each point
+        var latLngs = layer.getLatLngs();
+        var coordinates = latLngs.map(function(latLng) {
+            return [latLng.lng, latLng.lat]; // Reverse the order for GeoJSON format
+        });
+        // Display the coordinates
+        areaDisplay.innerHTML += '<br>Coordinates: ' + JSON.stringify(coordinates);
+    }
+    // You can add further checks for other layer types if needed
+}
+
+function toggleFieldExpansion(item) {
+    item.classList.toggle('expanded');
+    toggleSaveButtonVisibility(item);
+    var layerId = item.dataset.layerId;
+    var areaDisplay = document.getElementById(`areaDisplay_${layerId}`);
+    var layer = drawnItems.getLayer(layerId);
+
+    if (item.classList.contains('expanded')) {
+        // Display the GeoJSON coordinates
+        displayArea(layer, areaDisplay);
+        // Center the map view on the selected shape
+        if (layer) {
+            map.fitBounds(layer.getBounds());
+        }
+
+        // Store latitude, longitude, and area in fieldData array
+        var fieldInfo = {
+            id: layerId,
+            coordinates: layer.toGeoJSON().geometry.coordinates // Store GeoJSON coordinates
+        };
+        fieldData.push(fieldInfo);
+    } else {
+        areaDisplay.innerHTML = '';
+
+        // Remove field data when collapsing the field
+        fieldData = fieldData.filter(field => field.id !== layerId);
+    }
+}
+function submitField(layerId) {
+    var layer = drawnItems.getLayer(layerId);
+    if (layer) {
+        var fieldName = layer.options.name; // Get the field name associated with the layer
+        var fieldGeoJSON = layer.toGeoJSON(); // Get the GeoJSON representation of the layer
+
+        // Display confirmation popup
+        var confirmation = confirm("Do you want to save this field in the database? If not click on cancel ,the field will still get processed on the next page.");
+        if (confirmation) {
+            // If user confirms, prompt for username
+            var username = prompt("Please enter your username:");
+            if (username) {
+                // If username is provided, proceed with submission
+                fetch('/result', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        geojson: fieldGeoJSON,
+                        fieldName: fieldName,
+                        username: username // Include username in the request body
+                    })
+                }).then(function (response) {
+                    return response.text();
+                }).then(function (text) {
+                    console.log('POST response:');
+                    console.log(text);
+                });
+            } else {
+                // If username is not provided, alert the user
+                alert("Username is required to save the field.");
+            }
+        } else {
+            // If user clicks "No", proceed with submission without asking for username
+            fetch('/result', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    geojson: fieldGeoJSON,
+                    fieldName: fieldName
+                })
+            }).then(function (response) {
+                return response.text();
+            }).then(function (text) {
+                console.log('POST response:');
+                console.log(text);
+            });
+        }
+    }
+}
+
+// Boolean flag to track if username prompt has been shown
+var usernameEntered = false;
+
+// Add event listener to the "Saved Fields" button
+document.getElementById('saved-field-button').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default behavior of the anchor element
+    
+    // If username has already been entered, toggle the sidebar visibility
+    if (usernameEntered) {
+        toggleSidebar3();
+        return;
+    }
+    
+    // Prompt for username
+    var username = prompt("Please enter your username:");
+    if (username) {
+        // Set the flag to true after entering the username for the first time
+        usernameEntered = true;
+        
+        // Fetch and populate saved fields
+        fetchAndPopulateSavedFields(username);
+    } else {
+        alert("Username cannot be empty!");
+    }
+});
+
+
+
+
+
+function fetchAndPopulateSavedFields(username) {
+    fetch('/get_saved_fields', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: username
+        })
+    }).then(function (response) {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    }).then(function (data) {
+        console.log('Fetched saved fields:', data); // Log fetched data
+        if (data.status === 'success') {
+            // Once data is received, populate sidebar3 with the fetched saved fields
+            toggleSidebar3()
+            populateSidebar3(data.saved_fields);
+            
+            // Display the fetched saved fields on the map
+            displaySavedFieldsOnMap(data.saved_fields);
+        } else {
+            console.error('Error:', data.message);
+            // Handle the error appropriately, e.g., display an error message to the user
+        }
+    }).catch(function (error) {
+        console.error('There was a problem fetching the saved fields:', error);
+        // Handle the error appropriately, e.g., display an error message to the user
+    })
+}
+
+// Function to populate sidebar3 with fetched saved fields
+function populateSidebar3(savedFields) {
+    var savedFieldList = document.getElementById('saved-field');
+    savedFieldList.innerHTML = '';
+
+    console.log('Populating sidebar with saved fields:', savedFields); // Log saved fields
+
+    // Loop through fetched saved fields
+    savedFields.forEach(function(savedField) {
+        var listItem = document.createElement('li');
+        listItem.className = 'field-item';
+
+        // Populate saved field information
+        listItem.innerHTML = `<br><br><div class="field-header">
+                                    <img src="./static/hel.webp" alt="Field Image"> ${savedField.name}
+                                    <i class="delete-icon fas fa-trash-alt" onclick="deleteSavedField('${savedField.id}')"></i>
+                                </div>
+                                <div class="field-content">
+                                    <br><div id="areaDisplay_saved_${savedField.id}" class="area-display"></div>
+                                    <!-- Add any other content you want to display for each saved field -->
+                                </div>`;
+
+        // Add event listener for saved field item click
+        listItem.addEventListener('click', function () {
+            toggleSavedFieldExpansion(listItem);
+            displaySavedFieldArea(savedField.id);
+        });
+
+        // Append the saved field item to the sidebar
+        savedFieldList.appendChild(listItem);
+    });
+}
+
+// Function to display the area of a saved field
+function displaySavedFieldArea(fieldId) {
+    var areaDisplay = document.getElementById(`areaDisplay_saved_${fieldId}`);
+    var fieldData = fieldGeoJSONData.find(function(field) {
+        return field.properties.fieldid === fieldId;
+    });
+
+    if (fieldData) {
+        var coordinates = fieldData.geometry.coordinates[0]; // Assuming it's a Polygon
+        areaDisplay.innerHTML = '<br>Coordinates: ' + JSON.stringify(coordinates);
+    } else {
+        areaDisplay.innerHTML = 'Field data not found';
+    }
+}
+// Function to display saved fields on the map
+function displaySavedFieldsOnMap(savedFields) {
+    savedFields.forEach(function(savedField) {
+        // Create a GeoJSON layer from the saved field data
+        var geojsonLayer = L.geoJSON(savedField.geojson);
+
+        // Add the GeoJSON layer to the map
+        geojsonLayer.addTo(map);
+
+        // Optionally, you can customize the style of the GeoJSON layer
+        // geojsonLayer.setStyle({ color: 'red', fillOpacity: 0.5 });
+
+        // Optionally, you can bind a popup to each GeoJSON feature
+        // geojsonLayer.bindPopup(savedField.fieldName);
+    });
+}
+
+
+
+map.on('draw:created', function (e) {
+    // Clear the fieldGeoJSONData array
+    fieldGeoJSONData = [];
+
+    var type = e.layerType,
+        layer = e.layer;
+    var fieldName = prompt("Enter field name:");
+
+    if (type === 'polygon' || type === 'rectangle' || type === 'circle') {
+        while (fieldName !== null) {
+            var existingLayer = drawnItems.getLayers().find(function (existingLayer) {
+                return existingLayer.options.name === fieldName;
+            });
+
+            if (existingLayer) {
+                alert('A field with the same name already exists. Please choose a different name.');
+                fieldName = prompt("Enter field name:");
+            } else {
+                layer.options.name = fieldName;
+                drawnItems.addLayer(layer);
+                updateSidebar(layer);
+                toggleSidebar()
+                self.drawControl._toolbars.draw.disable();
+                break; // Exit the loop when a unique name is provided
+            }
+        }
+
+   
+      
+
+        // Export the coordinates from the layer
+        var latlngs = layer.getLatLngs()[0]; // Get the latlngs array
+        var coordinates = []; // Initialize coordinates array
+
+        for (var i = 0; i < latlngs.length; i++) {
+            coordinates.push([latlngs[i].lng, latlngs[i].lat]); // Push [lng, lat] pairs to coordinates array
+        }
+
+        // Push the coordinates to the GeoJSON geometry
+        geojson.geometry.coordinates.push(coordinates);
+
+        // Add the GeoJSON data to the fieldGeoJSONData array
+        fieldGeoJSONData.push({ layerId: layer._leaflet_id, geoJSON: geojson });
+
+        // Now fieldGeoJSONData array contains the GeoJSON data for the newly created field
+
+        // Finally, show the poly as a geojson object in the console
+        window.alert("Coordinates are saved\nPlease click Submit to proceed");
+        var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(geojson));
+        document.getElementById("dis").disabled = false;
+    } else {
+        window.alert("Coordinates are not selected. \n Please select coordinates with the help of Rectangle or Polygon.");
+        document.getElementById("dis").disabled = true;
+    }
+});
+
+
+    map.addControl(drawControl);
+
+    function deleteField(layerId) {
+        var layerToRemove = drawnItems.getLayer(layerId);
+
+        if (layerToRemove) {
+            if (layerToRemove instanceof L.Polygon || layerToRemove instanceof L.Circle) {
+                map.removeLayer(layerToRemove);
+            } else {
+                drawnItems.removeLayer(layerToRemove);
+            }
+
+            removeFieldFromSidebar(layerId);
+        }
+    }
+    function removeFieldFromSidebar(layerId) {
+        var fieldList = document.getElementById('field-list');
+        var listItem = fieldList.querySelector(`[data-layer-id="${layerId}"]`);
+        if (listItem) {
+            fieldList.removeChild(listItem);
+        }
+    }
+
+    // window.onbeforeunload = function () {
+    //     var savedFields = [];
+    //     drawnItems.eachLayer(function (layer) {
+    //         var fieldData = {
+    //             name: layer.options.name,
+    //             type: layer instanceof L.Polygon ? 'Polygon' :
+    //                 layer instanceof L.Circle ? 'Circle' : 'Marker',
+    //             coordinates: layer.getLatLng(),
+    //             radius: layer.getRadius()
+    //         };
+    //         savedFields.push(fieldData);
+    //     });
+    //     localStorage.setItem('savedFields', JSON.stringify(savedFields));
+    // };
+
+//     window.onload = function () {
+//     var savedFieldsJSON = localStorage.getItem('savedFields');
+//     if (savedFieldsJSON) {
+//         var savedFields = JSON.parse(savedFieldsJSON);
+//         savedFields.forEach(function (field) {
+//             var recreatedLayer;
+
+//             if (field.type === 'Polygon') {
+//                 // Recreate Polygon
+//                 recreatedLayer = L.polygon(field.coordinates, {
+//                     name: field.name
+//                 });
+//             } else if (field.type === 'Circle') {
+//                 // Recreate Circle
+//                 recreatedLayer = L.circle(field.coordinates, {
+//                     name: field.name,
+//                     radius: field.radius
+//                 });
+//             } else {
+    //                 // Default to Marker if type is not recognized
+//                 recreatedLayer = L.marker(field.coordinates, {
+//                     name: field.name
+//                 });
+//             }
+
+//             drawnItems.addLayer(recreatedLayer);
+//             updateSidebar(recreatedLayer);
+//         });
+//     }
+// };
+//     map.addControl(self.drawControl);
+</script>
+<!-- ... (remaining HTML and script) ... -->
+</html>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+crossorigin="anonymous"></script>
+
+<script>
+        function confirmRename() {
+            var newFieldName = document.getElementById('newFieldName').value;
+        if (newFieldName) {
+            var layerId = document.getElementById('renameModal').dataset.layerId;
+            var layer = drawnItems.getLayer(layerId);
+            if (layer) {
+                layer.options.name = newFieldName;
+                updateSidebar(layer);
+                $('#renameModal').modal('hide');
+            }
+        }
+    }
+    
+    function renameField(layerId) {
+        var layer = drawnItems.getLayer(layerId);
+        if (layer) {
+            var newName = prompt("Enter a new name:", layer.options.name);
+            if (newName !== null) {  // Check if the user clicked cancel
+                layer.options.name = newName;
+                updateSidebar(layer);
+            }
+        }
+    }
+    
+    function toggleSidebar3() {
+    var sidebar2 = document.querySelector('.sidebar2');
+    var sidebar3 = document.querySelector('.sidebar3');
+    
+    // If sidebar3 has child nodes, open it
+    if (sidebar3.hasChildNodes()) {
+        sidebar3.classList.remove('initial-hidden');
+        sidebar3.classList.toggle('hidden');
+    } else {
+        openUsernamePrompt(); // Fetch saved fields if no data present
+    }
+    
+    // Hide sidebar2 if sidebar3 is opened
+    if (!sidebar3.classList.contains('hidden')) {
+        sidebar2.classList.add('initial-hidden');
+    } else {
+       
+    }
+}
+
+
+    // Change the toggleSidebar function to always open the sidebar
+    function toggleSidebar() {
+        $(".sidebar2").addClass("open").removeClass("initial-hidden");
+        $(".sidebar3").removeClasss("open");
+    }
+
+    // Attach the click event to the My Fields button
+    $(document).ready(function () {
+        $(".sidebar2").addClass("initial-hidden"); // Initially hide the sidebar
+
+        $("#myFieldsBtn").on("click", function () {
+            toggleSidebar();
+            $(".sidebar3").addClass("initial-hidden"); 
+            
+        });
+    });
+
+    // Add this code to open the sidebar when a shape is created
+    map.on('draw:created', function (e) {
+        toggleSidebar();
+    });
+    function toggleSidebar() {
+        $(".sidebar2").toggleClass("open").toggleClass("initial-hidden");
+    }
+
+    $(document).ready(function () {
+        $(".sidebar2").addClass("initial-hidden"); // Initially hide the sidebar
+
+        $("#myFieldsBtn").on("click", function () {
+            toggleSidebar();
+        });
+    });
+</script>
+<script>
+
+
+
+function ExportGeoJSON() {
+        var geojsonData = {
+            type: "FeatureCollection",
+            features: []
+        };
+
+        drawnItems.eachLayer(function (layer) {
+            var feature = {
+                type: "Feature",
+                properties: {
+                    name: layer.options.name
+                },
+                geometry: layer.toGeoJSON().geometry
+            };
+            geojsonData.features.push(feature);
+        });
+
+        // Convert GeoJSON object to string
+        var geojsonStr = JSON.stringify(geojsonData);
+
+        // Create a download link
+        var blob = new Blob([geojsonStr], { type: "application/json" });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = "drawn_items.geojson";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+
+    
+
+</script>
+<script>
+   // Get the reference to the latLngDisplay div
+var latLngDisplay = document.getElementById('latLngDisplay');
+
+// Attach mousemove event listener to the map
+map.on('mousemove', function (e) {
+    // Get the latitude and longitude from the mouse event
+    var lat = e.latlng.lat.toFixed(6);
+    var lng = e.latlng.lng.toFixed(6);
+
+    // Update the content of latLngDisplay div
+    latLngDisplay.innerHTML = '<span>Latitude: ' + lat + '</span><span>Longitude: ' + lng + '</span>';
+});
+</script>
+
+
+

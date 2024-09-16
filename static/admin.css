@@ -1,0 +1,120 @@
+*{
+    margin: 0px;
+}
+.main{
+display: grid;
+background-color: #d4d0cf;
+height:auto;
+}
+.header{
+   display: grid;
+   grid-template-columns: 2fr 6fr 2fr ;
+   justify-content: space-between;
+   column-gap:8%;
+  border: 0.8% solid black;
+   height: 10vh;
+   
+   justify-content: center;
+   justify-items: center;
+   align-items: center;
+}
+.sub-header h1{
+    margin-top: 2vh;
+}
+.sub-header{
+   
+   height: 10vh;
+   justify-content: center;
+   justify-items: center;
+   align-items: center;
+}
+.sub-headerr{
+   display: grid;
+   grid-template-columns:2fr 2fr 2fr 2fr 2fr;
+   height: 10vh;
+   justify-content: center;
+   justify-items: center;
+   align-items: center;
+}
+
+#logo{
+   width: 100%;
+   height: 100%;
+}
+.pages a{
+   text-decoration: none;
+   color: black;
+   text-shadow: 0.8% 0.8% whitesmoke;
+   text-size-adjust: auto;
+   cursor: pointer;
+}
+ a:hover{
+   color: white;
+   text-shadow: 0.8% 0.8% black;
+   cursor: pointer;
+}
+#o{
+   display: grid;
+   grid-template-columns: 5fr 5fr;
+   animation-name:btn1;
+   animation-duration: 5s;
+   animation-iteration-count: infinite;
+  
+}
+
+  
+#ai{
+   border: none;
+   animation-name:btn2;
+   animation-duration: 5s;
+   animation-iteration-count: infinite; 
+   height: 10vh;
+   cursor: pointer;
+}
+#ai1{
+   border: none;
+   animation-name:btn;
+   animation-duration: 5s;
+   animation-iteration-count: infinite;
+   height: 10vh;
+   cursor: pointer;
+}
+
+/* HEADER END */
+/* Content */
+.content{
+   display: grid;
+   grid-template-columns: 1.5fr 8fr;
+
+}
+.sub-con{
+height: 80vh;
+border: 0.2rem solid black;
+background-color: white;
+}
+.sidebar{
+   height: 80vh;
+   border: 0.2rem solid black;
+   background-color: whitesmoke;
+   position: sticky;
+  
+
+   }
+   .ok a:hover{
+      color: white;
+      text-shadow: 0.8% 0.8% rgb(9, 5, 255);
+      cursor: pointer;
+   }
+   .ok  a{
+      text-decoration: none;
+      color: black;
+      text-shadow: 0.8% 0.8% whitesmoke;
+      text-size-adjust: auto;
+      cursor: pointer;
+   }
+   /* content end */
+/* Footer */
+.footer{
+   width: 100vw;
+   border: 0.1rem solid black;
+}

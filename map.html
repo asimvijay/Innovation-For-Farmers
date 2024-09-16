@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NDVI Map</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- Leaflet.Toolbar CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-toolbar/dist/leaflet.toolbar.css" />
+    <!-- Leaflet.draw CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <!-- Leaflet.Toolbar JavaScript -->
+    <script src="https://unpkg.com/leaflet-toolbar/dist/leaflet.toolbar.js"></script>
+    <!-- Leaflet.draw JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+</head>
+<body>
+    <div id="map" style="width: 100%; height: 600px;"></div>
+
+    <script>
+        // Initialize Leaflet map
+        var map = L.map('map').setView([37.7749, -122.4194], 14); // Default view is San Francisco
+
+        // Add a base map layer (e.g., OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Initialize Leaflet.toolbar
+        var toolbar = new L.Control.Toolbar().addTo(map);
+
+        // Initialize Leaflet.draw
+        var drawnItems = new L.FeatureGroup();
+        map.addLayer(drawnItems);
+        var drawControl = new L.Control.Draw({
+            draw: {
+                polygon: true,
+                polyline: false,
+                rectangle: false,
+                circle: false,
+                marker: false
+            },
+            edit: {
+                featureGroup: drawnItems,
+                remove: true
+            }
+        });
+        map.addControl(drawControl);
+
+        // Define NDVI calculation function
+        function calculateNDVI(layer) {
+            // Get coordinates of the drawn polygon
+            var coordinates = layer.getLatLngs()[0].map(function(latlng) {
+                return [latlng.lat, latlng.lng];
+            });
+
+            // Implement NDVI calculation logic here using the coordinates of the drawn polygon
+            // This function will be triggered when a polygon is drawn on the map
+            // You can use Earth Engine or other sources to fetch satellite imagery for the selected area
+            // Then, calculate NDVI based on the selected area and display the NDVI results on the map
+            // Example:
+            console.log('Coordinates of the drawn polygon:', coordinates);
+            // Perform NDVI calculation and display the results
+        }
+
+        // Event listener for drawing events
+        map.on(L.Draw.Event.CREATED, function(event) {
+            var layer = event.layer;
+            drawnItems.addLayer(layer);
+            calculateNDVI(layer);
+        });
+
+        // Add NDVI tool to the toolbar
+        toolbar.addToolbar([
+            {
+                text: 'NDVI',
+                callback: function() {
+                    // Enable drawing mode when the NDVI tool is clicked
+                    drawControl._toolbars[L.DrawToolbar.TYPE].toggleButtonActive(drawControl.options.draw.polygon);
+                }
+            }
+        ]);
+    </script>
+</body>
+</html>

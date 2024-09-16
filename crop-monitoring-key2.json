@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "crop-monitoring-ab148",
+  "private_key_id": "0dd98d19cb23797dbf141bd9d0c12221ecaab815",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDgZA/dUUv6UtzF\nD+vMAnNAhRbU7M3f51Yb7in82GxxjWh9S8UHxhqsaRtmKxvnXQO840qTSBuJv3gt\ntWZqHSopYgliCm0CoPG37D9+ohJS+buLgMBANbLf7h8VNnbmor+oevOYbrL2lWQo\n3h3TwtdoXoqh4qketzBlBRcpt+V1Gwe88msOpYe9So7mZDgKsJ+L4PIb7lWxuLeO\n8OpM42+2Cf2aPl8hx5g3iLcNVOWuxmr5r1aQM5Idvt4jzMnVJSuLQ9+jEkoCdIub\nzoSPIRFThaVAn8nace0yh8V1s1xfdyoRzlO+ZOi0rJ15Hhdhv4QzNsD6YmMqMAMJ\nHyOHJR5/AgMBAAECggEAbxYKZpITL5NrGSHXJbHG1detZG7xQtn3Xq9q2PJZyWNs\nqa7jlYQk+1qzhkJsN39sVMwfRMerXmfMOrC1yW2zzDXtGDy6F9WOpPOPwYTB1pMs\nnhT42DDdY4+ykqFafrZudJ2dz8Zp0bpGkhbYJFgupMw9DIS2He8pxbEd9PjF31E7\ne9eeL7Gnmz88V/v8uHbkHm6cDdgIup1HrXVZMaDRqqsw97v59AT23VHJ5iWtKeyM\nQCTDNqW2R+t930DP80d+tTzBqRvVK2Vx8uuwmwgsEltUuPGb0SIV4XC+X3lxq+Il\nP8BHIQaWhOD7OZc6Lu6QLg+kfySluf8iylhXCEJ1WQKBgQD2zVReyaK+bJBpaKnL\nm5u8/LAw6p0oqTdpLPMba1oFGyGyQrhqeq/k/LEwlCdz5o/IZk6PxqTvqfmozuGK\nRdwO/C/DVmd2LRSuSNfP7+FgwVJGzN+z3IyAMQH4SA10a3WUlvKBPVTBCH26f7Ol\nzjs52mtQJ0gGanNdKhBTYUSTRwKBgQDowOnOrrxOlsBwNiHQU6RP4dcu14gUppXP\nnyVQa/pHQZfZwpy3zlIB0uiLC90E5dMMicyKbjHhLAVTzG3safblzTk+Wf+IWyjB\nWoqUTBwDMfZWCvKNAzgS26LM11wxXOICamIhL08ZqtqGjrPWhVHq0BlRiHJkfgTU\nuoU1nyMHCQKBgDAsM+Osh8+TcTyh6UKMxQFGcT2bDcH6BY7J70nS0mdcvF8HFufx\nupN/nzZUNL8yqa38CimWJGuDSe/hMbTDnghuwQPnwZoXgoniPf2gXOV91olrQ97f\nla0P48qKhdXLg8/VBtCjH//toFzewDoE3xqTv46NnElkTdBJfZZIzhHRAoGBAOO7\nVUjXqQGP+MwR+vW10PAj/YIkek4STERv53ePnrs3j5cOFn61TYHhVYwu2Fshb2U2\nMr5DYWR6yN+cBvWpHFzudpLuRdqpru+4Yh0FducdbHP1lCqquqOg6OJZ2SenRK+u\nXUMw4ckwZU4AtC8yFNuWLx+aTKrMrndh5FJ52TDZAoGAWC8Z2mZPm6ZAspp9F1XY\npgZUdP2IA/7GPdEnl1Z4EFUo/ke6bHOTIAgmX5v/8kQYPDnZDLcfXjLjmKbiSU0K\nCIJc1kheXNpe3ufaTiS8L1jQ4+cXX+MsoqtDIq5VPasMApfvVvyYyU2JZRIWdyu+\n7Qr4HUhWhUaij/aZuzsaZeQ=\n-----END PRIVATE KEY-----\n",
+  "client_email": "crop-monitoring-ab148@appspot.gserviceaccount.com",
+  "client_id": "103645696787833853262",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/crop-monitoring-ab148%40appspot.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

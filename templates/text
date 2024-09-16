@@ -1,0 +1,299 @@
+
+        var map = L.map('map').setView([24.8607, 67.0011], 14);
+        // Set up the OSM layer
+        googleHybrid = L.tileLayer('https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+            maxZoom: 20,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        }).addTo(map);
+        // map.createPane("snapshot-pane");
+        const snapshotOptions = {
+  hideElementsWithSelectors: [
+    ".leaflet-control-container"
+  ],
+  hidden: true
+};
+
+  
+    // Add takescreenshot function to button
+// const button = document.getElementById("snapshot-button");
+// button.addEventListener("click", takeScreenShot);
+
+
+        
+        var userid = "VJiFt9no3UhT4bkOgvpkuL7AGFS2";
+        userid = userid.toString();
+        var fieldsStr = ['[[24.876625644826667, 66.99771881103514], [24.875068296042944, 66.99763298034668], [24.875224031804528, 66.99917793273926], [24.876392043760347, 66.99909210205078], [24.876703511750634, 66.99840545654297], [24.876625644826667, 66.99771881103514]]'];
+        //console.log(fieldsStr);
+
+        var fieldnames = ['newfield'];
+        var newfield = {};
+        var newcentre = {};
+
+        var fieldids = [39];
+        
+
+        var centres = [{'lat': 24.87662564482667, 'lng': 66.99771881103514}];
+        //console.log(centres);
+        //console.log(centres.length);
+        var polys = [];
+        function drawPolygon(coords,map) {
+            //var coords =  [[48,-3],[50,5],[44,11],[48,-3]] ;          
+
+            var a = JSON.parse(coords);
+            console.log(a);
+            let polygon=L.polygon(a, {color: 'red'})
+            polys.push(polygon.addTo(map));
+
+            map.fitBounds(polygon.getBounds());
+        }
+        for(var n=0;n<centres.length;n++){
+            drawPolygon(fieldsStr[n],map);
+            //console.log("done");
+        }
+        // function Point(lat, lng) {
+        //     this.lat = lat;
+        //     this.lng = lng;
+        // }
+        // var fields = [];
+        // for (var i = 0; i < fieldsStr.length; i++) {
+        //     var field = fieldsStr[i];
+        //     var points = [];
+        //     for (var j = 0; j < fieldsStr.length-1;j++)[
+        //         if (fieldsStr[j] == "["){
+
+        //         }
+        //         else
+        //     ]
+        
+
+        
+   
+//searchLayer is a L.LayerGroup contains searched markers
+//         var search = new GeoSearch.GeoSearchControl({
+//   provider: new GeoSearch.OpenStreetMapProvider(),
+// });
+// new L.Control.geocoder({position:'topleft'}).addTo(map);
+// map.addControl(search);
+        //  L.Control.geocoder({position:'topleft'}).addTo(map);
+        // Initialise the FeatureGroup to store editable layers
+        var drawnItems = new L.FeatureGroup();
+        map.addLayer(drawnItems);
+        // Initialise the draw control and pass it the FeatureGroup of editable layers
+        self =this;
+         self.drawControl = new L.Control.Draw({
+            draw:true,
+            edit: {
+                featureGroup: drawnItems
+            }
+        });
+        map.addControl(drawControl);
+        hide_draw_ctrls();
+        
+          //add leaflet search option with osm
+          var option = {
+          position: 'topright', // topright, topleft, bottomright, bottomleft
+          text: 'Search',
+          placeholder: 'Search...',
+        }
+
+        var sidebar = L.control.sidebar('sidebar', {
+        position: 'left'
+        });
+
+        map.addControl(sidebar);
+        setTimeout(function () {
+        sidebar.show();
+        }, 500);
+
+        function tog(){
+            sidebar.toggle();
+        }
+        
+        var deletefieldoption,editfieldnameoption,editfieldcoordsoption;
+        deletefieldoption=false;
+        editfieldnameoption=false;
+        editfieldcoordsoption=false;
+
+function fdeletefieldoption(){
+        deletefieldoption=true;
+        editfieldcoordsoption=false;
+        editfieldnameoption=false;
+    }
+function feditfieldnameoption(){
+        editfieldnameoption=true;
+        editfieldcoordsoption=false;
+        deletefieldoption=false;
+    }
+function feditfieldcoordsoption(){
+        editfieldcoordsoption=true;
+        editfieldnameoption=false;
+        deletefieldoption=false;
+    }
+
+        var list_str="";
+        var markers=[];
+        function refreshcentres(option){
+            let thumbs=[];
+            markers = [];
+            list_str="";
+    if (centres.length > 0){
+
+        if (markers){
+            markers.forEach((element, i)=>{ 
+                map.removeLayer(element);
+            })
+        }
+    centres.forEach((element, i)=>{ 
+    let thumbpath = storage.ref(userid+"/"+fieldids[i]+"/thumb.png");
+    console.log(userid+"/"+fieldids[i]+"/thumb.png");
+    URLI="";
+    thumbpath.getDownloadURL().then((url)=>{
+        console.log(url);
+        $("#thumb"+i).attr("src",url);
+        });
+        
+   markers[i] = L.marker([element.lat,element.lng]).addTo(map)
+   .bindPopup("<strong>"+fieldnames[i]+"</strong>");
+    list_str=list_str+"<div id='flds' class='btn' onclick='use("+i+")'><img class='thumb' id='thumb"+i+"' src='"+URLI+"'><a id='fid"+fieldids[i]+"' >"+fieldnames[i]+"</a></div>";
+    })}
+str_end= "<button onclick='addfield()'>Add field</button><button onclick='fdeletefieldoption()'>Delete field</button><button onclick='feditfieldnameoption()'>Edit field name</button>"
+input_str="<form id='fieldname' name='fieldname' method='POST'><input type='text' name='field_name' placeholder='Enter field name' value='newfield'></form>";
+if (option){
+    sidebar_str = list_str+input_str+str_end;
+}
+else{
+    sidebar_str = list_str+str_end;
+}
+sidebar.setContent(sidebar_str);
+}
+refreshcentres(0);
+
+        
+
+        function panToMarker(i) {
+    map.panTo(markers[i].getLatLng());
+    }
+
+
+        
+
+function deletefield(i){
+        let fieldid = fieldids[i];
+        fetch('/deletefield', {
+
+                    // Specify the method
+                    method: 'POST',
+
+                    // A JSON payload
+                    body: JSON.stringify({
+                        fieldid
+                    })
+                }).then(function (response) { // At this point, Flask has printed our JSON
+                    return response.text();
+                }).then(function (text) {
+
+                    //console.log('POST response: ');
+
+                    // Should be 'OK' if everything was successful
+                    //console.log(text);
+                });
+                fieldnames.splice(i,1);
+                fieldids.splice(i,1)
+                //console.log(fieldids);
+                centres.splice(i,1);
+                map.removeLayer(markers[i]);
+                markers.splice(i,1);
+                map.removeLayer(polys[i]);
+                polys.splice(i,1);
+                refreshcentres(0);
+    }
+
+function editfieldname(i){
+        let fieldid = fieldids[i];
+        $("#fid"+fieldid).replaceWith("<form id='fieldname' name='fieldname' method='POST'><input type='text' name='field_name' placeholder='Enter field name' value='"+fieldnames[i]+"'></form>");
+        $('#fieldname input').focus()
+            .blur(function() {
+                var $this = $(this);
+                let newname = $this.val();
+                fieldnames[i]=newname;
+                refreshcentres(0);
+
+                fetch('/editfieldname', {
+
+                    // Specify the method
+                    method: 'POST',
+
+                    // A JSON payload
+                    body: JSON.stringify({
+                        fieldid,
+                        newname
+                    })
+                }).then(function (response) { // At this point, Flask has printed our JSON
+                    return response.text();
+                }).then(function (text) {
+
+                    //console.log('POST response: ');
+
+                    // Should be 'OK' if everything was successful
+                    //console.log(text);
+                });
+            }); 
+    }
+
+function editfieldcoords(i){
+       let fieldid = fieldids[i];
+        map.removeLayer(polys[i]);
+
+
+        show_draw_ctrls();
+        sidebar.hide();
+        document.getElementById("dis").disabled = true;
+        document.getElementById("refreshButton").style.visibility = "hidden";
+        document.getElementById("selectfile").style.visibility = "hidden";
+        document.getElementById("spn").style.visibility = "hidden";
+
+        map.on('draw:created', function (e) {
+            var type = e.layerType,
+                layer = e.layer;
+            hide_draw_ctrls();
+            latlngs = layer.getLatLngs();
+            // console.log(latlngs);
+           
+            editedcentre = {"lat":latlngs[0].lat,"lng":latlngs[0].lng};
+            centres[i]=editedcentre;
+            refreshcentres(0);
+            
+            if (type === 'polygon' || type === 'rectangle') {
+                // structure the geojson object
+                var geojson = {};
+                geojson['type'] = 'Feature';
+                geojson['geometry'] = {};
+                geojson['geometry']['type'] = "Polygon";
+
+                // export the coordinates from the layer
+                coordinates = [];
+                
+                for (var i = 0; i < latlngs.length; i++) {
+                    coordinates.push([latlngs[i].lng, latlngs[i].lat])
+                }
+
+                // push the coordinates to the json geometry
+                geojson['geometry']['coordinates'] = [coordinates];
+
+                fetch('/editfieldcoords', {
+
+                    // Specify the method
+                    method: 'POST',
+
+                    // A JSON payload
+                    body: JSON.stringify({
+                        fieldid,
+                        geojson
+                    })
+                }).then(function (response) { // At this point, Flask has printed our JSON
+                    return response.text();
+                }).then(function (text) {
+
+                    //console.log('POST response: ');
+
+                    // Should be 'OK' if everything was successfu…

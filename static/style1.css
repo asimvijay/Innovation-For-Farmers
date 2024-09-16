@@ -1,0 +1,684 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+#field-list {
+  list-style: none;
+  padding: 0;
+}
+
+.field-item {
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.field-item img {
+  max-width: 50px;
+  max-height: 50px;
+  margin-right: 10px;
+}
+
+.bk {
+  width: 100%;
+  height: 70px;
+  background: #e0e0e058;
+  padding-top: 20px;
+}
+
+.bk h3 {
+  margin-top: 0px;
+  margin-left: 5px;
+}
+
+.delete-icon,
+.rename-icon {
+  color: red;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+#sidebar-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+}
+
+.sidebar2 {
+  position: sticky;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 240px;
+  height: 100vh;
+  color: #fff;
+  overflow: hidden;
+  transition: all 0.5s linear;
+  background-color: #226F54;
+  box-shadow: -7px 4px 21px 3px rgba(0, 0, 0, 0.39);
+  -webkit-box-shadow: -7px 4px 21px 3px rgba(0, 0, 0, 0.39);
+  -moz-box-shadow: -7px 4px 21px 3px rgba(0, 0, 0, 0.39);
+  border-top-right-radius: 22px;
+
+}
+
+.sidebar2.open {
+  width: 240px;
+  /* Adjust the width as needed */
+}
+
+.sidebar2.initial-hidden {
+  width: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .sidebar2 {
+    width: 240px;
+  }
+
+  .sidebar2.open {
+    width: 70px;
+    /* Adjust the width as needed */
+  }
+}
+.sidebar3 {
+  position: sticky;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 240px;
+  height: 100vh;
+  color: #fff;
+  overflow: hidden;
+  transition: all 0.5s linear;
+  background-color: #226F54;
+  box-shadow: -7px 4px 21px 3px rgba(0, 0, 0, 0.39);
+  -webkit-box-shadow: -7px 4px 21px 3px rgba(0, 0, 0, 0.39);
+  -moz-box-shadow: -7px 4px 21px 3px rgba(0, 0, 0, 0.39);
+  border-top-right-radius: 22px;
+ 
+}
+.hidden{
+ width: 0px;
+}
+
+.sidebar3.open {
+  width: 240px;
+  /* Adjust the width as needed */
+}
+
+.sidebar3.initial-hidden {
+  width: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .sidebar3 {
+    width: 240px;
+  }
+
+  .sidebar3.open {
+    width: 70px;
+    /* Adjust the width as needed */
+  }
+}
+#latLngDisplay {
+  height: 5vh;
+width: 30vw;
+color: white;
+position: fixed;
+top: 95vh; /* Adjust as needed */
+left: 70vw; /* Adjust as needed */
+transition: all 0.5s linear;
+z-index: 9999; /* Set a high z-index value */
+
+overflow: hidden;
+}
+.latLngDisplay span {
+display: inline-block;
+}
+
+.latLngDisplay span:last-child {
+margin-left: 20px;
+}
+/* Add a class to define expanded state */
+
+/* Add flexbox styles to the field item */
+.field-item {
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+/* Adjust the styles for the expanded state */
+.field-item.expanded {
+height: auto; /* Set height to auto to allow content to expand */
+}
+
+/* Center the area display beneath the field name */
+.area-display {
+text-align: center;
+}
+
+
+
+.rename-icon {
+  margin-left: 5px;
+  /* Adjust the margin as needed */
+  cursor: pointer;
+  color: #ffffff;
+  /* Change the color as needed */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+}
+
+
+.menu1 {
+  height: 88%;
+  position: relative;
+  list-style: none;
+  padding: 0;
+  width: 210px;
+}
+
+.menu1 li {
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border-radius: 0.5rem;
+  transition: all 0.5s ease-in-out;
+}
+
+.menu1 li:hover,
+.active {
+  background: #e0e0e058;
+}
+
+
+
+
+.field-item {
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.field-item img {
+  max-width: 50px;
+  max-height: 50px;
+  margin-right: 10px;
+}
+
+.delete-icon {
+  color: red;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 110px;
+  height: 100vh;
+  padding: 0 1.7rem;
+  color: #fff;
+  overflow: hidden;
+  transition: all 0.5s linear;
+  background-color: #226F54;
+}
+
+.sidebar:hover {
+  width: 240px;
+  transition: 0.5s;
+}
+
+.logo {
+  height: 80px;
+  padding-top: 20px;
+
+}
+
+.logo img {
+  height: 60px;
+  width: 60px;
+
+}
+
+.menu {
+  height: 88%;
+  position: relative;
+  list-style: none;
+  padding: 0;
+
+}
+
+.menu li {
+  padding: 1rem;
+  margin: 0.5rem 0;
+  border-radius: 0.5rem;
+  transition: all 0.5s ease-in-out;
+}
+
+.menu li:hover,
+.active {
+  background: #e0e0e058;
+}
+
+.menu a {
+  color: #fff;
+  font-size: 14px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+#map {
+  margin-bottom: 6rem;
+  height: 86%;
+}
+#ndvimap {
+  margin-bottom: 6rem;
+  height: 86%;
+}
+
+
+
+
+
+.menu a span {
+  overflow: hidden;
+}
+
+.menu a i {
+  font-size: 1.2rem;
+}
+
+.logout {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+/* Main content */
+.main--content {
+  position: relative;
+  background: #ebe9e9;
+  width: 100%;
+
+}
+
+.header--wrapper img {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  border-radius: 50%;
+
+}
+
+.header--wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  background: #fff;
+  border-radius: 0.6rem;
+  padding: 0.6rem 2rem;
+  margin-bottom: 0.7rem;
+  margin-top: 0.6rem;
+  width: 98%;
+
+}
+
+.header--title {
+  color: rgba(113, 99, 186, 255);
+}
+
+.user--info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.search--box {
+  background: rgb(237, 237, 237);
+  border-radius: 15px;
+  color: rgba(113, 99, 186, 255);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.25rem 0.7rem;
+}
+
+.search--box input {
+  background: transparent;
+  padding: 0.6rem;
+}
+
+.search--box i {
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.5s ease-out;
+}
+
+.search--box i:hover {
+  transform: scale(1.2);
+}
+
+/* card container */
+.card--container {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.card--wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.main--title {
+  color: rgba(113, 99, 186, 255);
+  padding-bottom: 0.6rem;
+  font-size: 0.8rem;
+}
+
+.payment--card {
+
+  background: rgb(229, 223, 223);
+  border-radius: 10px;
+  padding: 1.2rem;
+  width: 290px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.5s ease-in-out;
+}
+
+.payment--card:hover {
+  transform: translateY(-5px);
+}
+
+.card--header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.2rem;
+}
+
+.amount {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 12px;
+  font-weight: 200;
+}
+
+.amount--value {
+  font-size: 24px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
+}
+
+.icon {
+  color: #fff;
+  padding: 1rem;
+  height: 60px;
+  width: 60px;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  background: red;
+}
+
+.card--detail {
+  font-size: 18px;
+  color: #777777;
+  letter-spacing: 2px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* color css */
+.light-red {
+  background: rgb(251, 233, 233);
+}
+
+.light-purple {
+  background: rgb(254, 226, 254);
+}
+
+.light-green {
+  background: rgb(235, 226, 235);
+}
+
+.light-blue {
+  background-color: rgb(236, 236, 254);
+}
+
+.dark-red {
+  background: red;
+}
+
+.dark-green {
+  background: green;
+}
+
+.dark-purple {
+  background: purple;
+}
+
+.dark-blue {
+  background: blue;
+}
+
+/* tabular wrapper */
+.tabular--wrapper {
+  background: #fff;
+  margin-top: 1rem;
+  border-radius: 10px;
+  padding-left: 2rem;
+}
+
+.table-container {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: #226F54;
+  color: #fff;
+}
+
+th {
+  padding: 0.8rem;
+  text-align: left;
+}
+
+tbody {
+  background: #f2f2f2;
+}
+
+td {
+  padding: 0.75rem;
+  font-size: 14px;
+  color: #333;
+}
+
+tr:nth-child(even) {
+  background: #fff;
+}
+
+tfoot {
+  background: rgba(113, 99, 186, 255);
+  font-weight: bold;
+  color: #fff;
+}
+
+tfoot td {
+  padding: 15px;
+}
+
+.table-container button {
+  color: green;
+  background: none;
+  cursor: pointer;
+
+}
+
+.leaflet-control-geocoder-form {
+  margin: 10px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.leaflet-control-geocoder-search-input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.leaflet-control-geocoder-icon {
+  color: #555;
+}
+
+.leaflet-control-geocoder-search-button {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.leaflet-control-geocoder-search-button:hover {
+  background-color: #45a049;
+}
+
+@media screen and (max-width: 600px) {
+  .sidebar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 70px;
+    height: 100vh;
+    padding: 0 1.7rem;
+    color: #fff;
+    overflow: hidden;
+    transition: all 0.5s linear;
+    background-color: #226F54;
+  }
+
+  .sidebar:hover {
+    width: 240px;
+    transition: 0.5s;
+  }
+
+  .logo {
+    height: 40px;
+    padding-top: 10px;
+
+  }
+
+  .logo img {
+    height: 30px;
+    width: 30px;
+
+  }
+
+  .menu a {
+    font-size: 7px;
+  }
+
+  .header--wrapper img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 50%;
+
+  }
+
+  .payment--card {
+
+    background: rgb(229, 223, 223);
+    border-radius: 10px;
+    padding: 1.2rem;
+    width: 140px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.5s ease-in-out;
+  }
+
+  .title {
+    font-size: 8px;
+    font-weight: 200;
+  }
+
+  .amount--value {
+    font-size: 12px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
+  }
+
+  .icon {
+    color: #fff;
+    padding: 1rem;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    background: red;
+  }
+
+  .card--detail {
+    font-size: 9px;
+    color: #777777;
+    letter-spacing: 0.1rem;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  td {
+    padding: 0.75rem;
+    font-size: 9px;
+  }
+
+  .header--title h2 {
+    font-size: 12px;
+  }
+
+  #map {
+    height: 95vh;
+    margin-bottom: 0;
+  }
+
+}

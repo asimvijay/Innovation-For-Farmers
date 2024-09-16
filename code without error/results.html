@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Results</title>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styleresult.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static',filename='new.css')}}">
+<!-- #############new -->
+<!-- ############new -->
+
+        
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable({{ dicvi | safe }}
+        );
+
+        var options = {
+            title: 'NDVI',
+            pointsVisible: true,
+            chartArea: {
+                backgroundColor: {
+                    fill: '#111418',
+                    fillOpacity: 0.7,
+                    right: 10, // !!! works !!!
+                    bottom: 20,
+
+                },
+            },
+            backgroundColor: {
+                fill: '#f1f1f1',
+                fillOpacity: 0
+            },
+
+            vAxis: {
+                gridlines: { color: '#939393' },
+                minValue: -1,
+                maxValue: 1,
+                textStyle: { color: '#6a7179' }, showColorCode: true,
+
+
+            },
+            hAxis: {
+                gridlines: { color: '#939393' },
+                textStyle: { color: '#575a5e' }, showColorCode: true,
+
+
+            }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('ndvi'));
+        chart.draw(data, options);
+      }
+    </script>
+    <script type="text/javascript">
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable({{ dicmi | safe }}
+          );
+
+        var options = {
+            title: 'NDMI',
+            pointsVisible: true,
+            chartArea: {
+                backgroundColor: {
+                    fill: '#111418',
+                    fillOpacity: 0.7,
+                    right: 10, // !!! works !!!
+                    bottom: 20,
+
+                },
+            },
+            backgroundColor: {
+                fill: '#f1f1f1',
+                fillOpacity: 0
+            },
+
+            vAxis: {
+                gridlines: { color: '#939393' },
+                minValue: -1,
+                maxValue: 1,
+                textStyle: { color: '#6a7179' }, showColorCode: true,
+
+
+            },
+            hAxis: {
+                gridlines: { color: '#939393' },
+                textStyle: { color: '#575a5e' }, showColorCode: true,
+
+
+            }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('ndmi'));
+        chart.draw(data, options);
+        }
+    </script>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="https://formden.com/static/cdn/formden.js"></script>
+
+<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+<link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+</head>
+
+<body>
+
+    <div class="container">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-nav-demo" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="#" class="navbar-brand"><img class="logo" src="static/logo.png" alt="logo"></a>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-nav-demo">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a id="menu" href="#home">HOME</a></li>
+                        <li><a id="menu" href="#how">HOW IT WORKS</a></li>
+                        <li><a id="menu" href="#about">ABOUT</a></li>
+                        <li><a id="menu" href="#contact" id="space">CONTACT</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="row">
+
+            <div class="column col-lg-6 col-sm-12">
+                <img style="display:none; position: fixed; width:100%; height:100vh; z-index: 1; overflow: visible;
+            right: 0px; left: 0px; top: 0px; right: 0px; opacity: 90%;" id="bigpic" src="bigpic" />
+
+                <img class="imgvi" id="image" src="{{ plotvi }}" />
+                <div id="coord"></div>
+                <div id="my"></div>
+                <div class="col-lg-12 col-md-6 col-sm-12 align-items-center">
+                    <h3 class="text1">selected area</h3>
+
+                    <form action="/code" entype="multipart/formdata"  method="post" role="form">
+          
+                             <div class="row">
+                                
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                               <!-- <form action="/date" class="form-horizontal" method="post"> -->
+                                <div style="margin-left: 15px;">Start Date:</div>
+                                <div class="form-group ">
+                                 <div class="col-sm-10">
+                                  <div class="input-group">
+                                   <div class="input-group-addon">
+                                    <i class="fa fa-calendar">
+                                    </i>
+                                   </div>
+                                   <input class="form-control" id="date" name="startdate" placeholder="MM/DD/YYYY" type="text" style="margin-top:0px ;"/>
+                                  </div>
+                                 </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                               <!-- <form action="/date" class="form-horizontal" method="post"> -->
+                                <div> End Date:</div>
+                                <div class="form-group ">
+                                 <div class="col-sm-10">
+                                  <div class="input-group">
+                                   <div class="input-group-addon">
+                                    <i class="fa fa-calendar">
+                                    </i>
+                                   </div>
+                                   <input class="form-control" id="date" name="enddate" placeholder="MM/DD/YYYY" type="text" style="margin-top:0px ;"/>
+                                  </div>
+                                 </div>
+                                </div>
+                              </div>
+                             </div>
+                            
+                        <button class="button button1" onclick="f1(); code();">Process</button>
+                       
+                    </form>
+                    <h3 class="text2">Click 'Process' to start processing.
+                        <br>Processing may take a while, be patient.
+                    </h3>
+                </div>
+            </div>
+            <div class="column1 col-lg-6 col-sm-12">
+                <h3 class="head">Total Area (sq. km)</h3>
+                <textarea rows="2" id="shadow" cols="23" readonly>{{ b }}</textarea>
+                <h3 class="head">Green Area (sq. km)</h3>
+                <textarea rows="2" id="shadow" cols="23" readonly>{{ c }}</textarea>
+                <h3 class="head">Nongreen Area (sq. km)</h3>
+                <textarea rows="2" id="shadow" cols="23" readonly>{{ d }}</textarea>
+                <h3 class="head">Percentage (%)</h3>
+                <textarea rows="2" id="shadow" cols="23" readonly>{{ e }}</textarea>
+                <br>
+                <div class="text" style="margin-bottom:20px">
+                    <h2 class="head">Recommendations:</h2>
+                    <textarea id="shadow" cols="23" readonly>{{ f }}</textarea>
+
+                </div>
+
+                <a href="http://127.0.0.1:5000/"><button class="btn"><i class="fa fa-backward"> Back to Home Page
+                        </i></button></a>
+                <a href="/dashboard"><button class="btn"><i class="fa fa-map-marker"> Back to Map
+                        </i></button></a>
+
+
+            </div>
+
+        </div>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+        <!-- Include Date Range Picker -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+        <script type="text/javascript">
+          
+	$(document).ready(function(){
+		var date_input=$('input[name="startdate"]'); //our date input has the name "date"
+		var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+		date_input.datepicker({
+			format: 'mm/dd/yyyy',
+			container: container,
+			todayHighlight: true,
+			autoclose: true,
+		})
+	});
+    $(document).ready(function(){
+		var date_input=$('input[name="enddate"]'); //our date input has the name "date"
+		var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+		date_input.datepicker({
+			format: 'mm/dd/yyyy',
+			container: container,
+			todayHighlight: true,
+			autoclose: true,
+		})
+	});
+
+        </script>
+        <script type="text/javascript">
+            function f1() {
+                var sourceOfPicture = "https://freefrontend.com/assets/img/css-progress-bars/Loading-Bar.gif";
+                var img = document.getElementById('bigpic')
+                img.src = sourceOfPicture.replace('90x90', '225x225');
+                img.style.display = "block";
+            }
+            function myFunction() {
+                var x = document.getElementById("start").value;
+                document.getElementById("demo").innerHTML = x;
+            }
+
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('imgvi').click(function (e) {
+                    var offset = $(this).offset();
+                    var X = (e.pageX - offset.left);
+                    var Y = (e.pageY - offset.top);
+                    var row = "{{nrowsvi}}" - 1;
+                    var col = "{{ncolsvi}}" - 1;
+                    var total = 500;
+                    let resultX = Math.round((parseInt(X) / parseInt(total)) * parseInt(col));
+                    let resultY = Math.round((parseInt(Y) / parseInt(total)) * parseInt(row));
+                    var ndvi = JSON.parse("{{ ndvi }}");
+                    $('#coord').text('X: ' + X + ', Y: ' + Y + ", resultY: " + resultY + ', resultX :' + resultX);
+                    $('#my').text(' ndvi: ' + ndvi[resultY][resultX]);
+                });
+            });
+        </script>
+        </script>
+      
+    
+        <script>
+            $(document).ready(function () {
+                $('imgmi').click(function (e) {
+                    var offset = $(this).offset();
+                    var X = (e.pageX - offset.left);
+                    var Y = (e.pageY - offset.top);
+                    var row = "{{nrowsmi}}" - 1;
+                    var col = "{{ncolsmi}}" - 1;
+                    var total = 500;
+                    let resultX = Math.round((parseInt(X) / parseInt(total)) * parseInt(col));
+                    let resultY = Math.round((parseInt(Y) / parseInt(total)) * parseInt(row));
+                    var ndvi = JSON.parse("{{ ndmi }}");
+                    $('#coord').text('X: ' + X + ', Y: ' + Y + ", resultY: " + resultY + ', resultX :' + resultX);
+                    $('#my').text(' ndvi: ' + ndvi[resultY][resultX]);
+                });
+            });
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+
+
+</body>
+
+</html>

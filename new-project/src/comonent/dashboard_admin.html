@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="{{url_for('static',filename='admin.css')}}">
+</head>
+
+<body>
+  <!-- HEADER -->
+<div class="main">
+  <div class="header" style="background-color: #10c163;
+  background-image: linear-gradient(90deg, #10c163 35%, #0eff00 100%);
+  ">
+      <div class="sub-header"><h1>ADMIN</h1></div>
+      <div class="sub-headerr">
+              <div class="pages"><a href="./eproject.html"> HOME</a></div>
+              <div class="pages"><a href="./PRODUCTS.html"> EARNED</a></div>
+              <div class="pages"><a href="./Categories.html"> USERS</a></div>
+              <div class="pages"><a href="./Aboutus.html"> PRIVACY</a></div>
+              <div class="pages"><a href="./Aboutus.html"> EMPLOYEES</a></div>
+      </div>
+     
+  </div>
+  <div class="content">
+    <div class="sidebar"></div>
+    <div class="sub-con">
+      <h1>Welcome to the Admin Dashboard</h1>
+      <p>Username: {{ user.username }}</p>
+      <p>Password: {{ user.password }}</p>
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+  </div>
+      <div class="footer">
+        
+      </div>
+    
+</body>
+
+</html>

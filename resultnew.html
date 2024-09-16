@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html  lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Results</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styleresult.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700" rel="stylesheet">
+<style>
+    .img{
+        margin-top: 60px;
+        margin-left: 20px;
+        height: 500px;
+        width: 500px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+       -webkit-transition:margin-top 0.7s ;
+       transition: margin-top 0.6s;
+       transition-timing-function: ease-out;
+       -webkit-transition-timing-function: ease-out;
+       -moz-transition: margin-top 0.6s;
+       -moz-transition-timing-function: ease-out;
+    }
+    label {
+    display: block;
+    font: 1rem 'Fira Sans', sans-serif;
+    }
+
+    input,
+    label {
+        margin: .4rem 0;
+    }
+
+
+    .img1{
+        top: 0;
+      right: 2px;
+        margin-right: -60px;
+      margin-top: -30px;
+        position: absolute;
+        height: 70px;
+    }
+    #shadow{
+       box-shadow:
+       0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+       0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+       0 6.5px 10px rgba(0, 0, 0, 0.06),
+       0 6.3px 17.9px rgba(0, 0, 0, 0.072),
+       0 1.8px 33.4px rgba(0, 0, 0, 0.06),
+       0 10px 80px rgba(0, 0, 0, 0.12);
+       border-radius: 20px;
+       border:none;
+       text-align: left;
+       font-weight: 700;
+       color: rgb( 80, 212, 32);
+    }
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+
+    }
+    .text1{
+        margin-left: 5px;
+        font-size: 17px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 20px;
+        color: rgb(22, 133, 19);
+        font-style: italic;
+    }
+    .text2{
+        margin-left: -10px;
+        font-size: 18px;
+        text-align: center;
+        font-family: Courier New, monospace;
+        color: rgb(22, 133, 19);
+        font-style: italic;
+    }
+    .button{
+        font-size: 18px;
+        display: block;
+        text-align: left;
+    }
+    .text{
+        font-size: 15px;
+        text-align: left;
+        color: rgb( 54, 143, 21);
+        font-family: "Nunito", sans-serif;
+        font-weight: 100;
+    }
+    .btn {
+          background-color: #3c9c19;
+          border: none;
+          color: white;
+          padding: 5px 16px;
+          font-size: 16px;
+          cursor: pointer;
+          margin-bottom: 50px;
+          border-radius: 20px;
+          font-family: "Nunito", sans-serif;
+          display: outline-block;
+    }
+     /* Darker background on mouse-over */
+
+    .btn:hover {
+        box-shadow:
+       0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+       0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+       0 6.5px 10px rgba(0, 0, 0, 0.06),
+       0 6.3px 17.9px rgba(0, 0, 0, 0.072),
+       0 1.8px 33.4px rgba(0, 0, 0, 0.06),
+       0 10px 80px rgba(0, 0, 0, 0.12);
+    }
+    .button:hover {
+        box-shadow:
+       0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+       0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+       0 12.5px 10px rgba(0, 0, 0, 0.06),
+       0 6.3px 17.9px rgba(0, 0, 0, 0.072),
+       0 1.8px 33.4px rgba(0, 0, 0, 0.06),
+       0 10px 80px rgba(0, 0, 0, 0.12);
+     }
+
+    /**{
+      box-sizing: border-box;
+    }*/
+    .column {
+        padding: 10px;
+        margin-top: 40px;
+        text-align: left;
+    }
+    .column1{
+       padding: 10px;
+       margin-top: 40px;
+       /*margin-left: 20px;*/
+       padding-left:45px;
+    }
+    .head{
+        color: rgb( 54, 143, 21);
+        font-family: "Nunito", sans-serif;
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 18px;
+    }
+    .button1{
+        margin-top: 80px;
+        margin-left: 150px;
+        padding: 10px 50px 10px 50px;
+        background:#3c9c19;
+        color: white;
+        font-weight: 100;
+        cursor: pointer;
+        font-size: 22px;
+        display: inline-block;
+        border-radius: 30px;
+        font-family: "Nunito", sans-serif;
+    }
+    body{
+        background-image: url("https://c7.uihere.com/files/870/865/119/green-fresh-leaf-border-texture.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+	<div class="row" >
+
+        <div class="column col-lg-6 col-sm-12">
+            <img style="display:none; position: fixed; width:100%; height:100vh; z-index: 1; overflow: visible;
+            right: 0px; left: 0px; top: 0px; right: 0px; opacity: 90%;" id="bigpic" src="bigpic" />
+
+            <img class="img" id="image" src="{{url_for('static', filename='l.jpg')}}"/><!-- selected area pic -->
+
+        <div class="col-lg-12 col-md-6 col-sm-12 align-items-center">
+        <h3 class="text1">selected area</h3>
+            <form action="/code" entype="multipart/formdata">
+                <button class="button button1" onclick="f1(); code();">Process</button>
+            </form>
+            <h3 class="text2">Click 'Process' to start processing.
+                <br>Processing may take a while, be patient.</h3>
+        </div>
+        </div>
+    <div class="column1 col-lg-6 col-sm-12">
+            <img class="img1" src="{{url_for('static', filename='logon.png')}}"/>
+            <h3 class="head">Total Area (sq. km)</h3>
+            <textarea rows="2" id="shadow" cols="23" readonly>{{ b }}</textarea>
+            <h3 class="head">Green Area (sq. km)</h3>
+            <textarea rows="2" id="shadow" cols="23" readonly>{{ c }}</textarea>
+            <h3 class="head">Nongreen Area (sq. km)</h3>
+            <textarea rows="2" id="shadow" cols="23" readonly>{{ d }}</textarea>
+            <h3 class="head">Percentage (%)</h3>
+            <textarea rows="2" id="shadow" cols="23" readonly>{{ e }}</textarea>
+
+           <div class="text">
+               <h2 class="head">Recommendations:</h2>
+               <textarea id="shadow" rows="15" cols="70" readonly>{{ f }}</textarea>
+
+           </div>      
+          <a href="http://127.0.0.1:5000/"><button class="btn"><i class="fa fa-backward">  Back to Home Page </i></button></a>
+          <a href="http://127.0.0.1:5000/map?"><button class="btn"><i class="fa fa-map-marker">   Back to Map   </i></button></a>
+    </div>
+	</div>
+</div>
+<script type="text/javascript">
+    function f1() {
+      var sourceOfPicture = "https://freefrontend.com/assets/img/css-progress-bars/Loading-Bar.gif";
+      var img = document.getElementById('bigpic')
+      img.src = sourceOfPicture.replace('90x90', '225x225');
+      img.style.display = "block";
+    }
+    function myFunction() {
+        var x = document.getElementById("start").value;
+        document.getElementById("demo").innerHTML = x;
+    }
+    function change() {
+        document.getElementById('image').src = "static/l.jpg";
+    }
+</script>
+	
+</body>
+</html>

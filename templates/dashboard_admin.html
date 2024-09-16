@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<!-- Add this script inside the head -->
+<style>
+    
+</style>
+
+<body>
+    <div class="sidebar">
+        <div class="logo"></div>
+        <ul class="menu">
+            <li class="active">
+                <a href="#">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Statistics</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-briefcase"></i>
+                    <span>Careers</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-question-circle"></i>
+                    <span>FAQ</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-star"></i>
+                    <span>Testimonials</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+            <li class="logout">
+                <a href="{{ url_for('login') }}">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="main--content">
+        <div class="header--wrapper">
+            <div class="header--title">
+                <span style="color: #226F54;"></span>
+                <h2 style="color: #226F54;">Dashboard</h2>
+            </div>
+            <div class="user--info">
+                <div class="search--box">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" placeholder="Search" id="">
+                </div>
+                <img src="./static/image/person.jpg" alt="">
+            </div>
+        </div>
+        <div class="card--container">
+            <h3 class="main--title" style="color: #226F54;">Current Data</h3>
+            <div class="card--wrapper">
+                <div class="payment--card light-red" style="cursor: pointer;">
+                    <div class="card--header">
+                        <div class="ammount">
+                            <span class="title" style="font-size: 16px;">
+                                <h3>Earned</h3>
+                            </span>
+                            <span class="amount--value">$5000.00</span>
+                        </div>
+                        <i class="fas fa-dollar-sign icon"></i>
+                    </div>
+                    <span class="card-detail">**** **** **** 3484</span>
+                </div>
+                <div class="payment--card light-purple" onclick="toggleTable()" style="cursor: pointer;">
+                    <div class="card--header">
+                        <div class="ammount">
+                            <span class="title">
+                                <h3>Total users</h3>
+                                {{ user_count }}
+                            </span><br>
+                            <span class="amount--value" id="userCount"></span>
+                        </div>
+                        <i class="fas fa-list icon dark-purple"></i>
+                    </div>
+                    <span class="card-detail">Total numbers of users</span>
+                </div>
+                <div class="payment--card light-blue" style="cursor: pointer;">
+                    <div class="card--header">
+                        <div class="ammount">
+                            <span class="title" style="font-size: 16px;">
+                                <h2>Admins</h2> 
+                            </span>
+                            <span class="amount--value">2</span>
+                        </div>
+                        <i class="fas fa-check icon dark-blue "></i>
+                    </div>
+                    <span class="card-detail">Website Managed By</span>
+                </div>
+
+            </div>
+        </div>
+        <div class="tabular--wrapper">
+            <h3 class="main--title" style="color: #226F54; font-size: 23px;">Users Data</h3>
+            <!-- Add this inside the <div class="tabular--wrapper"> -->
+            <div class="table-container" id="userTableContainer">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>UID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Created On</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTableBody">
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.uid }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.created_on }}</td>
+                            <td>
+                                <form method="POST" action="/edit_user/{{ user.uid }}">
+                                    <button type="submit" style="height: 35px;
+                                                                width: 65px;
+                                                                border-radius: 10px;
+                                                                font-size: 14px;
+                                                                background-color: green;
+                                                                color: white;">Edit</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form method="POST" action="/delete_user/{{ user.uid }}">
+                                    <button type="submit" style="height: 35px;
+                                                                width: 65px;
+                                                                border-radius: 10px;
+                                                                font-size: 14px;
+                                                                background-color: red;
+                                                                color: white;">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    
+                </table>
+            </div>
+            <div class="admin">
+                <center style="margin-right: 2%;"><h1>Admins</h1></center >
+                <div class="arg">
+               <div class="emp1  " style="margin-left: 5%; cursor: pointer;"><center><ul>
+                <li>Name : Hashim</li>
+                <li>Email : hashimhasan444@gmail.com</li>
+                <li>Contact-info : 0345 8809899</li>
+                <li>Address : Karachi,*****,***</li>
+               </ul></center></div>
+               <div class="emp light-blue"  style="margin-right: 5%; cursor: pointer;"><center><ul>
+                <li>Name : Vijay</li>
+                <li>Email : ewe111.vijay@gmail.com</li>
+                <li>Contact-info : 0345 83939899</li>
+                <li>Address : Karachi,*****,***</li>
+               </ul></center></div>
+              </div>
+            </div>
+            <div class="earning">
+                <canvas id="earningChart" class="chart-transition"></canvas>
+            </div>
+        </div>
+        <div class="tabular--wrapper1">
+            <h3 class="main--title" style="color: #226F54; font-size: 23px;"></h3>
+            <canvas id="websiteTrafficChart" class="chart-transition"></canvas>
+        </div>        
+        
+    </div>
+</body>
+
+</html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- // FOR USERS DATA TABLE  -->
+<script>
+    
+    function toggleTable() {
+        var tableContainer = document.getElementById('userTableContainer');
+        tableContainer.classList.toggle('table-visible');
+    }
+
+    // Your existing JavaScript code
+    function fetchUsers() {
+        // Your fetchUsers function goes here
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchUsers);
+
+    function editUser(userId) {
+        console.log('Edit user with ID:', userId);
+    }
+     
+// Admin div***********************************************************
+    function toggleAdmin() {
+  var adminContainer = document.querySelector('.admin');
+  var tableContainer = document.getElementById('userTableContainer');
+  
+  // Toggle visibility of admin container
+  adminContainer.classList.toggle('admin-visible');
+  
+  // Hide table container if it's open
+  if (tableContainer.classList.contains('table-visible')) {
+    tableContainer.classList.remove('table-visible');
+  }
+}
+
+// Update the function called when clicking on the "Admins" card
+document.querySelector('.light-blue').addEventListener('click', toggleAdmin);
+
+</script>
+<!-- FOR DEMO CHART -->
+<script>
+    function initializeDemoChart() {
+        // Fetch or generate dummy data for the chart
+        var chartData = {
+            labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+            datasets: [{
+                label: 'Website Traffic',
+                data: [100, 150, 120, 200, 180, 250, 220, 300, 280, 350, 320, 400],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        // Get the canvas element and create a chart
+        var ctx = document.getElementById('websiteTrafficChart').getContext('2d');
+        var websiteTrafficChart = new Chart(ctx, {
+            type: 'line',
+            data: chartData,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                aspectRatio: 3, // Adjust this value to control the aspect ratio (width/height)
+                maintainAspectRatio: false // Set to false to apply the specified aspect ratio
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', initializeDemoChart);
+</script>
+<script>
+<!-- Earning Chart ------------------------------------------------------------------->
+// Toggle visibility of the earning chart
+function toggleEarningChart() {
+    var earningChartContainer = document.querySelector('.earning');
+    var websiteTrafficChartContainer = document.querySelector('.tabular--wrapper1');
+    earningChartContainer.classList.toggle('earning-visible');
+
+    // Adjust height of earning chart based on visibility
+    var earningChart = document.getElementById('earningChart');
+    if (earningChartContainer.classList.contains('earning-visible')) {
+        earningChart.height = 200; // Set height when visible
+        websiteTrafficChartContainer.style.opacity = '0';
+        websiteTrafficChartContainer.style.maxHeight = '0';
+    } else {
+        earningChart.height = 0; // Set height to 0 when not visible
+        websiteTrafficChartContainer.style.opacity = '1';
+        websiteTrafficChartContainer.style.maxHeight = '37vh';
+    }
+}
+
+// Add event listener to the red card to toggle earning chart visibility
+document.querySelector('.light-red').addEventListener('click', toggleEarningChart);
+
+
+// Initialize earning chart
+function initializeEarningChart() {
+    var chartData = {
+        labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        datasets: [{
+            label: 'Earnings',
+            data: [0, 2000, 1000, 2000, 3000, 2000, 2000, 3000, 4000, 3000, 4500, 5000],
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
+    };
+
+    var ctx = document.getElementById('earningChart').getContext('2d');
+    var earningChart = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value, index, values) {
+                            return '$' + value; // Display currency format
+                        }
+                    }
+                }
+            },
+            aspectRatio: 3,
+            maintainAspectRatio: false
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initializeEarningChart);
+</script>

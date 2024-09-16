@@ -1,0 +1,35 @@
+Open the Terminal
+If new to python some mini steps
+)Download the python according to the described way ,you can find the way on youtube.
+)If more than one person working on website eachone has to create its own venv
+)After creating venv you may have to go to the eenviroment variables on your computer and have to make some changes,you can also find this on youtube.
+)
+<!-- 1)First Step -->
+Create a venv (python -m venv venv)
+<!-- 2)Second Step -->
+open the venv in the terminal as:your venv name /scripts/activate
+<!-- 3)Third Step  -->
+Download requirements.txt(pip install -r requirements.txt)
+and some extra libraries(instruction:This web is created in december 2023, you may have an error and have to download new libraries according
+to the latest libraries)
+<!-- 4)Fourth Step -->
+Check if any imports on test.py page is giving any error(instruction:the real issue you might get when you have to install
+pyrebase)
+if not then continue
+<!-- 5)Fifth Step -->
+Create a id on firebase 
+Create a project
+Create a realtime database
+Create authentication
+Create a storage bucket(not necesssary)
+<!-- 6)Sixth Step -->
+Then you have to replace the firebase configuration on test.py with your links of firbase(you have to create your own
+key like in this folder crop monitoring key replace it with yours)
+<!-- 7)Seventh Step -->
+Then each page has its own steps to requirements
+<!-- 8)Eigth Step -->
+First Signup to create account 
+You might have issue to access the admin page ,change the approved emails with your emails on test.py page
+But for Dashboard page there are slight chances that you might have to authenticate with google earth engine to run the code(if page accesed you still have to authenticate with google earth engine for the NDVI map)
+Replace the earthengine project id with yours.(After authenticating)
+

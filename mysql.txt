@@ -1,0 +1,7 @@
+CREATE DATABASE firesaver;
+
+know go to privileges in the database 
+and username :HASHIM
+password:browtf
+go 
+ and then after that another go 
